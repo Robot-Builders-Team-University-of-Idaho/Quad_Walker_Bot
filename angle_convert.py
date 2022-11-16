@@ -1,7 +1,7 @@
 min_angle = 0
 max_angle = 360
 min_pos = 0
-max_pos = 4095
+max_pos = 4096
 
 # convert angle to position that dynamixel servo can read
 # (angle between 0 and 360)
