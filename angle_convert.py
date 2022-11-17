@@ -21,7 +21,7 @@ max_pos = 4095
 def angleToPos(angle: float) -> int:
 	# throw exception if parameter is outside angle range
     if (angle < min_angle or angle > max_angle):
-        raise Exception(f'Angle must be between {min_angle} and {max_angle}')
+        raise ValueError(f'Angle must be between {min_angle} and {max_angle}')
     
 	# use cross multiplication to solve for converted value
     return int(angle * max_pos / max_angle)
@@ -31,7 +31,7 @@ def angleToPos(angle: float) -> int:
 def posToAngle(pos: int) -> float:
 	# throw exception if parameter is outside position range
     if (pos < min_pos or pos > max_pos):
-        raise Exception(f'Position must be between {min_pos} and {max_pos}')
+        raise ValueError(f'Position must be between {min_pos} and {max_pos}')
     
 	# use cross multiplication to solve for converted value
     return pos * max_angle / max_pos
