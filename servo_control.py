@@ -76,7 +76,7 @@ def closeServos():
 ########################################################################################################################
 #
 #
-# Servo Torque I/O
+# Servo Torque
 #
 #
 ########################################################################################################################
@@ -122,7 +122,11 @@ def torqueOn(id: int) -> bool:
 ########################################################################################################################
 #
 #
-# Servo Angle I/O
+# Servo Rotation
+#
+# Note: Angles and Positions (pos) are basically the same thing, except angles are floats that range from 0 to 359, and
+# positions are ints that range from 0 to 4059. The servos only take positions as inputs when being written to, but
+# angles are more intuitive to use so there are setters and getters for both.
 #
 #
 ########################################################################################################################
@@ -140,14 +144,41 @@ def setAngle(id: int, angle: float) -> bool:
 	
 	return True
 
-# Reads and returns the current angle of a servo
-def getAngle(id: int):
-		current_position, result, error = packetHandler.read4ByteTxRx(portHandler, id, addr_curr_pos)
-		if result != COMM_SUCCESS:
-			print("%s" % packetHandler.getTxRxResult(result))
-			return False
-		elif error != 0:
-			print("%s" % packetHandler.getRxPacketError(error))
-			return False
+# Set the position of a servo
+# Returns true if it successfully wrote to the servo, false if it didn't
+def setPos(id: int, pos: int) -> bool:
+	result, error = packetHandler.write4ByteTxRx(portHandler, id, addr_goal_pos, pos)
+	if result != COMM_SUCCESS:
+		print("%s" % packetHandler.getTxRxResult(result))
+		return False
+	elif error != 0:
+		print("%s" % packetHandler.getRxPacketError(error))
+		return False
+	
+	return True
 
-		return angle_convert.posToAngle(current_position)
+# Reads and returns the current angle of a servo
+# Returns false if the servo wasn't read from successfully
+def getAngle(id: int):
+	current_position, result, error = packetHandler.read4ByteTxRx(portHandler, id, addr_curr_pos)
+	if result != COMM_SUCCESS:
+		print("%s" % packetHandler.getTxRxResult(result))
+		return False
+	elif error != 0:
+		print("%s" % packetHandler.getRxPacketError(error))
+		return False
+
+	return angle_convert.posToAngle(current_position)
+
+# Reads and returns the current position of a servo
+# returns false if the servo wasn't read from successfully
+def getPos(id: int):
+	current_position, result, error = packetHandler.read4ByteTxRx(portHandler, id, addr_curr_pos)
+	if result != COMM_SUCCESS:
+		print("%s" % packetHandler.getTxRxResult(result))
+		return False
+	elif error != 0:
+		print("%s" % packetHandler.getRxPacketError(error))
+		return False
+
+	return current_position
