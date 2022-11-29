@@ -1,4 +1,4 @@
-# read + write function references
+# reference for dxl servos read + write functions
 
 ## function structures:
 
