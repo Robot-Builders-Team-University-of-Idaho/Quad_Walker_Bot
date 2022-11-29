@@ -1,4 +1,4 @@
-import servo_control
+from robot_parts.servos import *
 
 # returns true if a string is an integer, false if not
 def isInt(input: str) -> bool:
