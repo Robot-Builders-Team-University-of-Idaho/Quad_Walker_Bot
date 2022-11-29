@@ -18,7 +18,7 @@ def isFloat(input: str) -> bool:
 
 # initialize servo control
 # if it fails, quit the program
-if not servo_control.initServos():
+if not initServos():
 	quit()
 
 # list to store all of the servos whos torque has been turned on so they can be turned off at the end
@@ -48,7 +48,7 @@ while True:
 	
 	# try turning on the torque for that servo
 	# if it works, append that servo's id to the list of servo ids to disable the torque on at the end of the program
-	if servo_control.enableTorque(id):
+	if enableTorque(id):
 		servo_ids.append(id)
 	# if it fails to turn on, end the program
 	else:
@@ -56,12 +56,12 @@ while True:
 	
 	# try turning the servo to the inputted angle
 	# if it fails, end the program
-	if not servo_control.setAngle(id, angle):
+	if not setAngle(id, angle):
 		break
 
 # loop through each of the servos that had its torque turned on and disable it
 for id in servo_ids:
-	servo_control.disableTorque(id)
+	disableTorque(id)
 
 # close down servo control
-servo_control.closeServos()
+closeServos()

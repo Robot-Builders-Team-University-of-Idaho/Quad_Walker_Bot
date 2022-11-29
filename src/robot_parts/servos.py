@@ -37,14 +37,14 @@ baudrate = 57600 # TODO: see if this value can be changed to something between 9
 # Use "cat /dev/ttyUSB*" command on raspberry pi CLI to see which usb ports the servos might be connected to
 device_path = '/dev/ttyUSB0'
 # initialize PortHandler object to read and write through physical (USB) port
-portHandler = PortHandler(device_path)
+port_handler = PortHandler(device_path)
 
 # Dynamixel Protocol Version 2.0
 # more info:
 # https://emanual.robotis.com/docs/en/dxl/protocol2/
 protocol_version = 2.0
 # initialize PacketHandler object to use read and write functions to servos
-packetHandler = PacketHandler(protocol_version)
+packet_handler = PacketHandler(protocol_version)
 
 ########################################################################################################################
 #
@@ -59,11 +59,11 @@ packetHandler = PacketHandler(protocol_version)
 # Use this at the start of your program to be able to use the servos
 def initServos() -> bool:
 	# Open port
-	if not portHandler.openPort():
+	if not port_handler.openPort():
 		return False
 
 	# Set port baudrate
-	if portHandler.setBaudRate(baudrate):
+	if port_handler.setBaudRate(baudrate):
 		return True
 	else:
 		return False
@@ -71,7 +71,7 @@ def initServos() -> bool:
 # Closes the port to the servos
 # Use this when you're done with the servos / at the end of your program
 def closeServos():
-	portHandler.closePort()
+	port_handler.closePort()
 
 ########################################################################################################################
 #
@@ -84,12 +84,12 @@ def closeServos():
 # Enable torque on a servo
 # Returns true if it successfully wrote to the servo, false if it didn't
 def enableTorque(id: int) -> bool:
-	result, error = packetHandler.write1ByteTxRx(portHandler, id, addr_torque, 1)
+	result, error = packet_handler.write1ByteTxRx(port_handler, id, addr_torque, 1)
 	if result != COMM_SUCCESS:
-		print("%s" % packetHandler.getTxRxResult(result))
+		print("%s" % packet_handler.getTxRxResult(result))
 		return False
 	elif error != 0:
-		print("%s" % packetHandler.getRxPacketError(error))
+		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 
 	return True
@@ -97,24 +97,24 @@ def enableTorque(id: int) -> bool:
 # Disable torque on a servo
 # Returns true if it successfully wrote to the servo, false if it didn't
 def disableTorque(id: int) -> bool:
-	result, error = packetHandler.write1ByteTxRx(portHandler, id, addr_torque, 0)
+	result, error = packet_handler.write1ByteTxRx(port_handler, id, addr_torque, 0)
 	if result != COMM_SUCCESS:
-		print("%s" % packetHandler.getTxRxResult(result))
+		print("%s" % packet_handler.getTxRxResult(result))
 		return False
 	elif error != 0:
-		print("%s" % packetHandler.getRxPacketError(error))
+		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 
 	return True
 
 # Returns true if the servo's torque is enabled, false if it isn't or if there was an error
 def torqueOn(id: int) -> bool:
-	value, result, error = packetHandler.read1ByteTxRx(portHandler, id, addr_torque)
+	value, result, error = packet_handler.read1ByteTxRx(port_handler, id, addr_torque)
 	if result != COMM_SUCCESS:
-		print("%s" % packetHandler.getTxRxResult(result))
+		print("%s" % packet_handler.getTxRxResult(result))
 		return False
 	elif error != 0:
-		print("%s" % packetHandler.getRxPacketError(error))
+		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 	
 	return bool(value)
@@ -134,12 +134,12 @@ def torqueOn(id: int) -> bool:
 # Set angle of a servo
 # Returns true if it successfully wrote to the servo, false if it didn't
 def setAngle(id: int, angle: float) -> bool:
-	result, error = packetHandler.write4ByteTxRx(portHandler, id, addr_goal_pos, angle_convert.angleToPos(angle))
+	result, error = packet_handler.write4ByteTxRx(port_handler, id, addr_goal_pos, angleToPos(angle))
 	if result != COMM_SUCCESS:
-		print("%s" % packetHandler.getTxRxResult(result))
+		print("%s" % packet_handler.getTxRxResult(result))
 		return False
 	elif error != 0:
-		print("%s" % packetHandler.getRxPacketError(error))
+		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 	
 	return True
@@ -147,12 +147,12 @@ def setAngle(id: int, angle: float) -> bool:
 # Set the position of a servo
 # Returns true if it successfully wrote to the servo, false if it didn't
 def setPos(id: int, pos: int) -> bool:
-	result, error = packetHandler.write4ByteTxRx(portHandler, id, addr_goal_pos, pos)
+	result, error = packet_handler.write4ByteTxRx(port_handler, id, addr_goal_pos, pos)
 	if result != COMM_SUCCESS:
-		print("%s" % packetHandler.getTxRxResult(result))
+		print("%s" % packet_handler.getTxRxResult(result))
 		return False
 	elif error != 0:
-		print("%s" % packetHandler.getRxPacketError(error))
+		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 	
 	return True
@@ -160,25 +160,25 @@ def setPos(id: int, pos: int) -> bool:
 # Reads and returns the current angle of a servo
 # Returns false if the servo wasn't read from successfully
 def getAngle(id: int):
-	current_position, result, error = packetHandler.read4ByteTxRx(portHandler, id, addr_curr_pos)
+	current_position, result, error = packet_handler.read4ByteTxRx(port_handler, id, addr_curr_pos)
 	if result != COMM_SUCCESS:
-		print("%s" % packetHandler.getTxRxResult(result))
+		print("%s" % packet_handler.getTxRxResult(result))
 		return False
 	elif error != 0:
-		print("%s" % packetHandler.getRxPacketError(error))
+		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 
-	return angle_convert.posToAngle(current_position)
+	return posToAngle(current_position)
 
 # Reads and returns the current position of a servo
 # returns false if the servo wasn't read from successfully
 def getPos(id: int):
-	current_position, result, error = packetHandler.read4ByteTxRx(portHandler, id, addr_curr_pos)
+	current_position, result, error = packet_handler.read4ByteTxRx(port_handler, id, addr_curr_pos)
 	if result != COMM_SUCCESS:
-		print("%s" % packetHandler.getTxRxResult(result))
+		print("%s" % packet_handler.getTxRxResult(result))
 		return False
 	elif error != 0:
-		print("%s" % packetHandler.getRxPacketError(error))
+		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 
 	return current_position
