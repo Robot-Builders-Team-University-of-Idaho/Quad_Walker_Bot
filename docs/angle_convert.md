@@ -15,12 +15,12 @@ are correct for the model of dynamixel servos that you are using.
 
 ## Functions
 
-<u>**angleToPos(angle: float) -> int**</u>
+**angleToPos(angle: float) -> int**
 
 Inputs: angle (Angle to convert to servo position value)
 Outputs: int (Servo position value that is approximately equal to the inputted angle)
 
-<u>**posToAngle(pos: int) -> float**</u>
+**posToAngle(pos: int) -> float**
 
 Inputs: pos (Servo position value to convert to angle)
 Outputs: float (Angle that is approximately equal to the inputted position value)
