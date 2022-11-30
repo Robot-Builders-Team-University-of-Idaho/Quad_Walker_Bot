@@ -125,7 +125,7 @@ def torqueOn(id: int) -> bool:
 # Servo Rotation
 #
 # Note: Angles and Positions (pos) are basically the same thing, except angles are floats that range from 0 to 359, and
-# positions are ints that range from 0 to 4059. The servos only take positions as inputs when being written to, but
+# positions are ints that range from 0 to 4095. The servos only take positions as inputs when being written to, but
 # angles are more intuitive to use so there are setters and getters for both.
 #
 #
