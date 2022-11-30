@@ -13,8 +13,10 @@
 
 # Dynamixel SDK library
 from dynamixel_sdk import *
+import sys
+sys.path.append('/home/vandals/Robotics/Quad_Walker_Bot/src/robot_parts/utils')
 # Angle to position and position to angle conversion functions
-from utils.angle_convert import *
+import angle_convert
 
 # These values are for X Series servos (X330 (5.0 V recommended), X430, X540, 2X430)
 # Make sure these values are correct according to the emanual for the device you're using
@@ -131,7 +133,7 @@ def torqueOn(id: int) -> bool:
 # Set angle of a servo
 # Returns true if it successfully wrote to the servo, false if it didn't
 def setAngle(id: int, angle: float) -> bool:
-	result, error = packet_handler.write4ByteTxRx(port_handler, id, addr_goal_pos, angleToPos(angle))
+	result, error = packet_handler.write4ByteTxRx(port_handler, id, addr_goal_pos, angle_convert.angleToPos(angle))
 	if result != COMM_SUCCESS:
 		print("%s" % packet_handler.getTxRxResult(result))
 		return False
@@ -165,7 +167,7 @@ def getAngle(id: int):
 		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 
-	return posToAngle(current_position)
+	return angle_convert.posToAngle(current_position)
 
 # Reads and returns the current position of a servo
 # returns false if the servo wasn't read from successfully
