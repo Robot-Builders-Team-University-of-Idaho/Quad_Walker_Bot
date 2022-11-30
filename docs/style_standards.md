@@ -45,9 +45,9 @@ Make sure your titles give a good overview of all of your changes as well!
 
 ## File Names
 
-TLDR: Lowercase snake casing, keep short
+TLDR: Lowercase snake casing
 
-File names for source code files will be all lowercase and use snake casing (using underscores to represent spaces). Try to keep file names short too so we don't have to type as much lol.
+File names for source code files will be all lowercase and use snake casing (using underscores to represent spaces).
 
 Examples of snake casing:
 
@@ -87,16 +87,16 @@ parseWithTypes()
 
 ## Variable Names
 
-TLDR: Lower camel case
+TLDR: Lowercase snake casing
 
-Variable names will follow the same naming convention as function names.
+Variable names will follow the same naming convention as file names.
 
 Examples of lower camel casing:
 
 ```
-treeNode
-longFileData
-publicKey
+tree_node
+long_file_query
+public_key
 ```
 
 ## Indenting
