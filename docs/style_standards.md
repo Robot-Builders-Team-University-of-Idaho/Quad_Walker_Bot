@@ -22,6 +22,9 @@ output.py
 scan_lib.py
 1. Removed this file since everything it did was spread out to other files
 
+UnitTest.py
+1. Changed the name of this file to "unit_test.py" to fit the coding style standards
+
 scan_modules
 1. Changed the name of this folder to just "scan"
 ```
