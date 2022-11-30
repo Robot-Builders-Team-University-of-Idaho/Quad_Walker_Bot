@@ -24,7 +24,7 @@ Also make sure that `device_path` is correctly linked to the USB port that the s
 Inputs: Nothing
 Output: Dynamixel servos become set up so you can control the servos.
 
-**closeServos()**
+<ins>**closeServos()**</ins>
 
 Inputs: Nothing
 Output: Connection to Dynamixel servos closes.
@@ -33,44 +33,44 @@ Output: Connection to Dynamixel servos closes.
 
 #### Torque Control
 
-**enableTorque(id: int) -> bool**
+<ins>**enableTorque(id: int) -> bool**</ins>
 
 Inputs: id (servo id number)
 Outputs: bool (whether it succeeded or not)
 Attempts to turn on the torque of a servo with the inputted id value so it can be turned and hold its position.
 
-**disableTorque(id: int) -> bool**
+<ins>**disableTorque(id: int) -> bool**</ins>
 
 Inputs: id (servo id number)
 Outputs: bool (whether it succeeded or not)
 Attempts to disable the torque of a servo with the inputted id value so it rotates freely now and doesn't hold it's position, but also can't be told to go to a certain angle.
 
-**torqueOn(id: int) -> bool**
+<ins>**torqueOn(id: int) -> bool**</ins>
 
 Inputs: id (servo id number)
 Outputs: bool (whether or not the servo with the inputted id has its torque on or off currently)
 
 #### Rotation Control
 
-**setAngle(id: int, angle: float) -> bool**
+<ins>**setAngle(id: int, angle: float) -> bool**</ins>
 
 Inputs: id (servo id number), angle (angle to rotate servo to (0 - 359))
 Outputs: bool (whether it succeeded or not)
 Attempts to turn a servo with the inputted id value to the inputted angle.
 
-**setPos(id: int, pos: int) -> bool**
+<ins>**setPos(id: int, pos: int) -> bool**</ins>
 
 Inputs: id (servo id number), pos (position to rotate servo to (0 - 4095))
 Outputs: bool (whether it succeeded or not)
 Attempts to turn a servo with the inputted id value to the inputted position value.
 
-**getAngle(id: int)**
+<ins>**getAngle(id: int)**</ins>
 
 Inputs: id (servo id number)
 Outputs: float (current angle of servo), bool (returns a false value if it fails to communicate with servo)
 Attemps to read and return the current angle of a servo with the inputted id value.
 
-getPos(id: int)**
+<ins>**getPos(id: int)**</ins>
 
 Inputs: id (servo id number)
 Outputs: int (current position value of servo), bool (returns a false value if it fails to communicate with servo)
