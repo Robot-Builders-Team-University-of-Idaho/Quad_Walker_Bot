@@ -15,3 +15,5 @@ In [servos.py](/src/robot_parts/servos.py), make sure the address values are cor
 In [angle_convert.py](/src/robot_parts/utils/angle_convert.py), make sure the min and max angle and position values are correct for the dynamixel servos that you are using.
 
 Make sure you read our [coding style standards](/docs/style_standards.md) before you start programming! Be sure to read other things in [docs](/docs) as well!
+
+When you're writing documentation, make sure the files your create are .md files. [Here's a link to a tutorial on how to make text look stylish in the markdown format](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
