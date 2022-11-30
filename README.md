@@ -13,3 +13,5 @@ Here are some links to the official Dynamixel website that show you how to downl
 In [servos.py](/src/robot_parts/servos.py), make sure the address values are correct for the dynamixel servos that you are using, and that the device path is correct as well.
 
 In [angle_convert.py](/src/robot_parts/utils/angle_convert.py), make sure the min and max angle and position values are correct for the dynamixel servos that you are using.
+
+Make sure you read our [coding style standards](/docs/style_standards.md) before you start programming! Be sure to read other things in [docs](/docs) as well!
