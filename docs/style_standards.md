@@ -6,7 +6,7 @@ Whenever you create a commit to push to the repository, make sure you put the na
 
 Example:
 
-**Title:** ```Optmized scanning modules```
+**Summary:** ```Optmized scanning modules```
 
 **Description:**
 ```
