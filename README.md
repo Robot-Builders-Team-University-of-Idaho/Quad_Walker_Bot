@@ -10,6 +10,6 @@ Here are some links to the official Dynamixel website that show you how to downl
 
 [Installing the Python Files for the Dynamixel SDK](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/library_setup/python_linux/)
 
-In servo_control.py, make sure the address values are correct for the dynamixel servos that you are using, and that the device path is correct as well.
+In [servos.py](/src/robot_parts/servos.py), make sure the address values are correct for the dynamixel servos that you are using, and that the device path is correct as well.
 
-In angle_convert.py, make sure the min and max angle and position values are correct for the dynamixel servos that you are using.
+In [angle_convert.py](/src/robot_parts/utils/angle_convert.py), make sure the min and max angle and position values are correct for the dynamixel servos that you are using.
