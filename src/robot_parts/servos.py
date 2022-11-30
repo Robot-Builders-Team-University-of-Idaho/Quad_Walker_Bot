@@ -26,9 +26,6 @@ addr_torque = 64
 addr_goal_pos = 116
 # Address of a servo's current position
 addr_curr_pos = 132
-# Min and Max position values (not used here, just for reference)
-min_pos = 0
-max_pos = 4095
 # Bits per second that gets transmitted across the servo connection
 baudrate = 57600 # TODO: see if this value can be changed to something between 9,600 and 4,500,000 (higher is better)
 
