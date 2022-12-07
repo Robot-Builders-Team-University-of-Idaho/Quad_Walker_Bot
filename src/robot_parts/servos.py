@@ -15,7 +15,7 @@
 from dynamixel_sdk import *
 # Add file path to angle_convert
 import sys
-sys.path.append('/home/vandals/Robotics/Quad_Walker_Bot/src/robot_parts/utils')
+sys.path.append('robot_parts/utils')
 # Angle to position and position to angle conversion functions
 import angle_convert
 
