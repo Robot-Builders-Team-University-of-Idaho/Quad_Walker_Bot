@@ -13,11 +13,8 @@
 
 # Dynamixel SDK library
 from dynamixel_sdk import *
-# Add file path to angle_convert
-import sys
-sys.path.append('robot_parts/utils')
 # Angle to position and position to angle conversion functions
-import angle_convert
+from utils.angle_convert import *
 
 # These values are for X Series servos (X330 (5.0 V recommended), X430, X540, 2X430)
 # Make sure these values are correct according to the emanual for the device you're using
