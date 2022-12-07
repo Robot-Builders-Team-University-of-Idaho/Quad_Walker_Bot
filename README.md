@@ -14,8 +14,6 @@ Here are some links to the official Dynamixel website that show you how to downl
 
 Make sure you read our [coding style standards](/docs/style_standards.md) before you start programming! Be sure to read other things in the [docs](/docs) folder as well!
 
-When you're writing documentation, make sure the files your create are .md files. [Here's a link to a tutorial on how to make text look stylish in the markdown format](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
-
 ## TODO
 
 1. Test if functions in [servos.py](/src/robot_parts/servos.py) should be turned into async functions by putting a print statement before and after a function call to setAngle() that rotates a servos a lot to see how long it takes to run that function.

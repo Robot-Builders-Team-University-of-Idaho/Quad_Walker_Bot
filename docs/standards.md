@@ -1,4 +1,4 @@
-# Coding Style Standards
+# Repository Standards (Coding style, file structure, etc.)
 
 ## Commit Descriptions
 
@@ -43,11 +43,23 @@ Example:
 
 Make sure your titles give a good overview of all of your changes as well!
 
-## File Names
+## File / Directory Structure
 
-TLDR: Lowercase snake casing
+All "main" program files should be stored in [/src](/src).
+
+"Main" program files are the files that you actually call to execute when you run a program and don't get called by any other files.
+
+All "import" program files should be stored in categorically organized subdirectories in [/src](/src).
+
+All documentation files should be stored in [/docs](/docs).
+
+## File / Directory Names
+
+TLDR: Lowercase snake casing, documentation files should be ".md" files
 
 File names for source code files will be all lowercase and use snake casing (using underscores to represent spaces).
+
+All documentation files should also be ".md" files so that they can look nice on GitHub.
 
 Examples of snake casing:
 
@@ -56,6 +68,16 @@ parse_utils.py
 output_lib_cleaner.py
 unit_test.py
 ```
+
+## Documentation Files
+
+TLDR: All doc files should be ".md" files, have markdown formatting to make it look nice, and be well written.
+
+All documentation files should be ".md" text files so they can be easily read on GitHub. Be sure to include some decent formatting as well to make it look nice.
+
+[Here's a tutorial on how to use markdown formatting.](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
+
+Make sure that your documentation files are well organized and clearly written as well!
 
 ## Class / Custome Type Names
 
