@@ -55,11 +55,9 @@ All documentation files should be stored in [/docs](/docs).
 
 ## File / Directory Names
 
-TLDR: Lowercase snake casing, documentation files should be ".md" files
+TLDR: Lowercase snake casing
 
 File names for source code files will be all lowercase and use snake casing (using underscores to represent spaces).
-
-All documentation files should also be ".md" files so that they can look nice on GitHub.
 
 Examples of snake casing:
 
