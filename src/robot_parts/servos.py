@@ -131,7 +131,7 @@ def torqueOn(id: int) -> bool:
 # Set angle of a servo
 # Returns true if it successfully wrote to the servo, false if it didn't
 def setAngle(id: int, angle: float) -> bool:
-	result, error = packet_handler.write4ByteTxRx(port_handler, id, addr_goal_pos, angle_convert.angleToPos(angle))
+	result, error = packet_handler.write4ByteTxRx(port_handler, id, addr_goal_pos, angleToPos(angle))
 	if result != COMM_SUCCESS:
 		print("%s" % packet_handler.getTxRxResult(result))
 		return False
@@ -165,7 +165,7 @@ def getAngle(id: int):
 		print("%s" % packet_handler.getRxPacketError(error))
 		return False
 
-	return angle_convert.posToAngle(current_position)
+	return posToAngle(current_position)
 
 # Reads and returns the current position of a servo
 # returns false if the servo wasn't read from successfully
