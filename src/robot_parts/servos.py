@@ -14,7 +14,7 @@
 # Dynamixel SDK library
 from dynamixel_sdk import *
 # Angle to position and position to angle conversion functions
-from utils.angle_convert import *
+from utils.unit_convert import *
 
 # These values are for X Series servos (X330 (5.0 V recommended), X430, X540, 2X430)
 # Make sure these values are correct according to the emanual for the device you're using
@@ -26,6 +26,10 @@ addr_torque = 64
 addr_goal_pos = 116
 # Address of a servo's current position
 addr_curr_pos = 132
+# Address for setting a new velocity to control the speed of a servo
+addr_goal_vel = 104
+# Address of a servo's current velocity
+addr_curr_vel = 128
 # Bits per second that gets transmitted across the servo connection
 baudrate = 57600 # TODO: see if this value can be changed to something between 9,600 and 4,500,000 (higher is better)
 
@@ -40,7 +44,7 @@ port_handler = PortHandler(device_path)
 # more info:
 # https://emanual.robotis.com/docs/en/dxl/protocol2/
 protocol_version = 2.0
-# initialize PacketHandler object to use read and write functions to servos
+# Initialize PacketHandler object to use read and write values to servos
 packet_handler = PacketHandler(protocol_version)
 
 ########################################################################################################################

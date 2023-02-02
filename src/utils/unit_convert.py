@@ -3,7 +3,7 @@
 #
 # University of Idaho Robotics Club, Mobile Robot Team
 #
-# Library to convert between angles and position values that Dynamixel servos can read
+# Library to convert between units like angles and dynamixel servo positions
 #
 # Authors / Contributors:
 # Chandler Calkins (Fall 2022 - Spring 2023)
