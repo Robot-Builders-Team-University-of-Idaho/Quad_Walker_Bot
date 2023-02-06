@@ -15,6 +15,8 @@
 from dynamixel_sdk import *
 # Angle to position and position to angle conversion functions
 from utils.unit_convert import *
+# Used in wait for angle
+import time
 
 # These values are for X Series servos (X330 (5.0 V recommended), X430, X540, 2X430)
 # Make sure these values are correct according to the emanual for the device you're using
@@ -183,3 +185,39 @@ def getPos(id: int):
 		return False
 
 	return current_position
+
+# Waits for a servo to get to a certain angle
+def waitForAngle(id: int, angle: float):
+	curr_pos = getPos(id)
+	err = 40
+	time_res = 0.000001
+	pos = angleToPos(angle)
+	if curr_pos < pos:
+		while getPos(id) < pos - err:
+			time.sleep(time_res)
+	elif curr_pos > pos:
+		while getPos(id) > pos + err:
+			time.sleep(time_res)
+
+
+########################################################################################################################
+#
+#
+# Velocity Control
+#
+# Note: Veclocity values are measured on the servos in united of 0.229 revolutions / minute
+#
+#
+########################################################################################################################
+
+# Sets the velocity of a servo
+def setVel(id: int, vel: int) -> bool:
+	result, error = packet_handler.write4ByteTxRx(port_handler, id, addr_goal_vel, vel)
+	if result != COMM_SUCCESS:
+		print("%s" % packet_handler.getTxRxResult(result))
+		return False
+	elif error != 0:
+		print("%s" % packet_handler.getRxPacketError(error))
+		return False
+	
+	return True

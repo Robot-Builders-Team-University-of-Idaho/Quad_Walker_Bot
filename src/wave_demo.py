@@ -11,13 +11,14 @@ enableTorque(2)
 enableTorque(3)
 
 for i in range(0, 5):
-	setAngle(1, 90)
-	setAngle(2, 270)
-	setAngle(3, 180)
-	time.sleep(1)
+	setAngle(1, 110)
+	setAngle(2, 240)
+	setAngle(3, 140)
+	time.sleep(0.5)
 	setAngle(1, 180)
 	setAngle(2, 180)
 	setAngle(3, 90)
+	time.sleep(0.5)
 
 disableTorque(1)
 disableTorque(2)
