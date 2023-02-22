@@ -187,16 +187,15 @@ def getPos(id: int):
 	return current_position
 
 # Waits for a servo to get to a certain angle
-def waitForAngle(id: int, angle: float):
+def waitForAngle(id: int, angle: float, error: float = 100):
 	curr_pos = getPos(id)
-	err = 40
 	time_res = 0.000001
 	pos = angleToPos(angle)
 	if curr_pos < pos:
-		while getPos(id) < pos - err:
+		while getPos(id) < pos - error:
 			time.sleep(time_res)
 	elif curr_pos > pos:
-		while getPos(id) > pos + err:
+		while getPos(id) > pos + error:
 			time.sleep(time_res)
 
 
