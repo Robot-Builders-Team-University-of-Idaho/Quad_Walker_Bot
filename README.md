@@ -20,4 +20,3 @@ Make sure you read our [coding style standards](/docs/style_standards.md) before
 
 2. Get Jobo to do squats
 
-hi
