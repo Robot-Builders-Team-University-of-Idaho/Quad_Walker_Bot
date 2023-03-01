@@ -16,6 +16,6 @@ Make sure you read our [coding style standards](/docs/style_standards.md) before
 
 ## TODO
 
-1. Test if functions in [servos.py](/src/robot_parts/servos.py) should be turned into async functions by putting a print statement before and after a function call to setAngle() that rotates a servos a lot to see how long it takes to run that function.
+1. Do value checking for get angle and get position functions
 
 2. Get Jobo to do squats
