@@ -28,8 +28,8 @@ addr_torque = 64
 addr_goal_pos = 116
 # Address of a servo's current position
 addr_curr_pos = 132
-# Address for setting a new velocity to control the speed of a servo
-addr_goal_vel = 104
+# Address for setting a new max velocity that the servo can rotate at while changing position (0 by default, which means inifinte speed)
+addr_pro_vel = 112
 # Address of a servo's current velocity
 addr_curr_vel = 128
 # Bits per second that gets transmitted across the servo connection
@@ -215,14 +215,15 @@ class servo:
 	#
 	# Velocity Control
 	#
-	# Note: Veclocity values are measured on the servos in united of 0.229 revolutions / minute and range from 0 to 32,767
+	# Note: Veclocity values are measured on the servos in united of 0.229 revolutions / minute and range from 0 to 32,767.
+	# 		Default velocity value is 0, which means inifite velocity.
 	#
 	#
 	########################################################################################################################
 
 	# Sets the velocity of a servo
 	def setVel(self, vel: int) -> bool:
-		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_goal_vel, vel)
+		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_pro_vel, vel)
 		if result != COMM_SUCCESS:
 			print("%s" % packet_handler.getTxRxResult(result))
 			return False
