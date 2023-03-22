@@ -72,6 +72,11 @@ class servo:
 		else:
 			return False
 	
+	# Closes the port to the servos
+	# Use this when you're done with the servos / at the end of your program
+	def closeServos():
+		port_num.closePort()
+	
 	
 	# Constructor for servo object
 	# id = id number of the servo
@@ -81,11 +86,8 @@ class servo:
 		if torqueOn:
 			self.enableTorque()
 	
-
-	# Closes the port to the servos
-	# Use this when you're done with the servos / at the end of your program
-	def closeServos():
-		port_num.closePort()
+	def __str__(self):
+		return str(self.id)
 
 	########################################################################################################################
 	#
@@ -216,7 +218,7 @@ class servo:
 	# Velocity Control
 	#
 	# Note: Veclocity values are measured on the servos in united of 0.229 revolutions / minute and range from 0 to 32,767.
-	# 		Default velocity value is 0, which means inifite velocity.
+	# 		Default velocity value is 0, which means inifite velocity. Max for 103 rpm is 450 velocity units.
 	#
 	#
 	########################################################################################################################
