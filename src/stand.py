@@ -3,6 +3,56 @@ import time
 
 servo.initServos()
 
+legs = 4
+joints = 3 # number of joints per leg
+
+i = 1
+# matrix of servos (2D list)
+# row 0 is front left (fl), 1 is front right (fr), 2 is back left (bl), 3 is back right (br)
+# col 0 is the servo closest to the center, 1 is the middle servo, and 2 is the last servo
+servos = []
+# initialize all of the servos
+for row in range(legs):
+	servos.append([])
+	for col in range(joints):
+		servos[row].append(servo(i))
+		i += 1
+
+# set all of the servos to a straight angle
+for row in range(legs):
+	for col in range(joints):
+		servos[row][col].setAngle(180)
+
+time.sleep(0.75)
+
+# make jobo stand up
+for row in range(legs):
+	servos[row][1].setAngle(200)
+	servos[row][2].setAngle(150)
+
+time.sleep(0.75)
+
+# make jobo stand up taller
+for row in range(legs):
+	servos[row][1].setAngle(150)
+	servos[row][2].setAngle(180)
+
+time.sleep(0.75)
+
+# make jobo twists back and forth a few times
+for i in range(10):
+	for row in range(legs):
+		servos[row][0].setAngle(150)
+	
+	time.sleep(0.5)
+
+	for row in range(legs):
+		servos[row][0].setAngle(210)
+	
+	time.sleep(0.5)
+
+time.sleep(0.25)
+
 fl = []
 fr = []
 bl = []
@@ -41,7 +91,6 @@ br[2].setAngle(180)
 
 time.sleep(0.75)
 
-
 fl[1].setAngle(200)
 fr[1].setAngle(200)
 bl[1].setAngle(200)
@@ -53,7 +102,6 @@ bl[2].setAngle(150)
 br[2].setAngle(150)
 
 time.sleep(0.75)
-
 
 fl[1].setAngle(150)
 fr[1].setAngle(150)
