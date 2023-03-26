@@ -16,10 +16,10 @@ max_angle = 359
 min_pos = 0
 max_pos = 4095
 
-min_vel = 1
-max_vel = 450
 min_rpm = 0.229
 max_rpm = 103
+min_vel = 1
+max_vel = 450
 
 # Convert angle to position value that dynamixel servo can read
 def angleToPos(angle: float) -> int:

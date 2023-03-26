@@ -23,7 +23,7 @@ Also make sure that `device_path` is correctly linked to the USB port that the s
 
 ### Starting Up and Shutting Down Servos
 
-<ins>**servo.initServos()**</ins>
+<ins>**servo.connect()**</ins>
 
 Opens connection to Dynamixel servos so they can be controlled and interacted with.
 
@@ -31,7 +31,7 @@ Inputs:
 
 Output:
 
-<ins>**servo.closeServos()**</ins>
+<ins>**servo.close()**</ins>
 
 Closes the connection to the Dynamixel servos.
 
@@ -72,7 +72,7 @@ Destructor for servo class. Disables the servo's torque when called.
 
 #### Torque Control
 
-<ins>**servo.enableTorque() -> bool**</ins>
+<ins>**servo.torqueOn() -> bool**</ins>
 
 Turns on the torque of a servo (this will make it so the servo can move and hold it's position).
 
@@ -82,7 +82,7 @@ Outputs:
 
 - True if the communication with the servo succeeded, false if it didn't.
 
-<ins>**servo.disableTorque() -> bool**</ins>
+<ins>**servo.torqueOff() -> bool**</ins>
 
 Turns off the torque of a servo (this will make it so the servo will be loose and no longer hold it's position, as well as disable movement control).
 
@@ -92,7 +92,7 @@ Outputs:
 
 - True if the communication with the servo succeeded, false if it didn't.
 
-<ins>**servo.torqueOn() -> bool**</ins>
+<ins>**servo.torqueIsOn() -> bool**</ins>
 
 Returns true if a servo's torque is on or false if it's not.
 
@@ -101,6 +101,16 @@ Inputs:
 Outputs:
 
 - True if the servo's torque is on, false if it's not or if the communication with the servo failed.
+
+<ins>**servo.torqueIsOff() -> bool**</ins>
+
+Returns true if a servo's torque is off or false if it's not.
+
+Inputs:
+
+Outputs:
+
+- True if the servo's torque is off, false if it's not or if the communication with the servo failed.
 
 #### Rotation Control
 

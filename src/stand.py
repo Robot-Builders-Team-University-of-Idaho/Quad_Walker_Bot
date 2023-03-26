@@ -1,7 +1,7 @@
 from robot_parts.servos import *
 import time
 
-servo.initServos()
+servo.connect()
 
 legs = 4
 joints = 3 # number of joints per leg
@@ -115,4 +115,4 @@ fr[0].setAngle(150)
 bl[0].setAngle(150)
 br[0].setAngle(150)
 
-servo.closeServos()
+servo.close()

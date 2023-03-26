@@ -1,10 +1,10 @@
 from robot_parts.servos import *
 
-if not servo.initServos():
+if not servo.connect():
 	quit()
 
 for i in range(1, 13):
 	a = servo(i)
-	a.disableTorque()
+	a.torqueOff()
 
-servo.closeServos()
+servo.close()

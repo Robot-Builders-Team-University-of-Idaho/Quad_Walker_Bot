@@ -60,10 +60,10 @@ class servo:
 	#
 	########################################################################################################################
 
-	# Open the port and set the BaudRate for the servos
+	# Open the connection / port and set the BaudRate for the servos
 	# Returns false if either of those steps fail, returns true if they both succeed
 	# Use this at the start of your program to be able to use the servos
-	def initServos() -> bool:
+	def connect() -> bool:
 		# Open port
 		if not port_num.openPort():
 			return False
@@ -74,9 +74,9 @@ class servo:
 		else:
 			return False
 	
-	# Closes the port to the servos
+	# Closes the connection / port to the servos
 	# Use this when you're done with the servos / at the end of your program
-	def closeServos():
+	def close():
 		port_num.closePort()
 	
 	# Constructor
@@ -85,7 +85,7 @@ class servo:
 	def __init__(self, id: int, torqueOn: bool = True):
 		self.id = id
 		if torqueOn:
-			self.enableTorque()
+			self.torqueOn()
 	
 	# String casting function
 	def __str__(self):
@@ -93,7 +93,7 @@ class servo:
 	
 	# Destructor
 	def __del__(self):
-		self.disableTorque()
+		self.torqueOff()
 
 	########################################################################################################################
 	#
@@ -103,9 +103,9 @@ class servo:
 	#
 	########################################################################################################################
 
-	# Enable torque on a servo
+	# Turns on the torque of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
-	def enableTorque(self) -> bool:
+	def torqueOn(self) -> bool:
 		# send value of 1 to torque address
 		result, error = packet_handler.write1ByteTxRx(port_num, self.id, addr_torque, 1)
 		# check for errors returned from servo
@@ -119,9 +119,9 @@ class servo:
 
 		return True
 
-	# Disable torque on a servo
+	# Turns off the torque of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
-	def disableTorque(self) -> bool:
+	def torqueOff(self) -> bool:
 		# send value of 0 to torque address
 		result, error = packet_handler.write1ByteTxRx(port_num, self.id, addr_torque, 0)
 		# check for errors returned from servo
@@ -134,8 +134,8 @@ class servo:
 
 		return True
 
-	# Returns true if the servo's torque is enabled, false if it isn't or if there was an error
-	def torqueOn(self) -> bool:
+	# Returns true if the servo's torque is on, false if it isn't or if there was an error
+	def torqueIsOn(self) -> bool:
 		# request current value at torque address
 		value, result, error = packet_handler.read1ByteTxRx(port_num, self.id, addr_torque)
 		# check for errors returned from servo
@@ -147,6 +147,20 @@ class servo:
 			return False
 		
 		return bool(value)
+	
+	# Returns true if the servo's torque is off, false if it isn't or if there was an error
+	def torqueIsOff(self) -> bool:
+		# request current value at torque address
+		value, result, error = packet_handler.read1ByteTxRx(port_num, self.id, addr_torque)
+		# check for errors returned from servo
+		if result != COMM_SUCCESS:
+			print(f"Servo {self.id} (torqueOn): {packet_handler.getTxRxResult(result)}")
+			return False
+		elif error != 0:
+			print(f"Servo {self.id} (torqueOn): {packet_handler.getRxPacketError(error)}")
+			return False
+		
+		return not bool(value)
 
 	########################################################################################################################
 	#
