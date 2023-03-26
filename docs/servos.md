@@ -2,7 +2,7 @@
 
 [servos.py](/src/robot_parts/servos.py)
 
-## Making Sure Values Are Correct
+# Making Sure Values Are Correct
 
 Make sure the values
 ```
@@ -17,9 +17,9 @@ The model we are currently using is the [XL330-M288-T](https://emanual.robotis.c
 
 Also make sure that `device_path` is correctly linked to the USB port that the servos are plugged into as well so the program can communicate with the servos.
 
-## Servo Class
+# Servo Class
 
-### Starting Up and Shutting Down Servos
+## Starting Up and Shutting Down Servos
 
 <ins>**servo.connect()**</ins>
 
@@ -66,9 +66,7 @@ Outputs:
 
 Destructor for servo class. Disables the servo's torque when called.
 
-### Controlling Servos
-
-#### Torque Control
+## Torque Control
 
 <ins>**servo.torqueOn() -> bool**</ins>
 
@@ -110,7 +108,7 @@ Outputs:
 
 - True if the servo's torque is off, false if it's not or if the communication with the servo failed.
 
-#### Rotation Control
+## Rotation Control
 
 <ins>**servo.setAngle(angle: float) -> bool**</ins>
 
@@ -190,7 +188,7 @@ Outputs:
 
 - Returns false if the inputted position value is not between 0 and 4095.
 
-#### Speed Control
+## Speed Control
 
 <ins>**setRPM(rpm: float) -> bool**</ins>
 
