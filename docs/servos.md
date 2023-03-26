@@ -2,7 +2,7 @@
 
 [servos.py](/src/robot_parts/servos.py)
 
-## Making Sure Values Are Correct
+# Making Sure Values Are Correct
 
 Make sure the values
 ```
@@ -13,80 +13,197 @@ baudate
 ```
 are correct for the model of dynamixel servos that you are using.
 
+The model we are currently using is the [XL330-M288-T](https://emanual.robotis.com/docs/en/dxl/x/xl330-m288/)
+
 Also make sure that `device_path` is correctly linked to the USB port that the servos are plugged into as well so the program can communicate with the servos.
+
+# Servo Class
 
 ## Functions
 
 ### Starting Up and Shutting Down Servos
 
-<ins>**initServos()**</ins>
+<ins>**servo.initServos()**</ins>
 
-Inputs: Nothing
+Opens connection to Dynamixel servos so they can be controlled and interacted with.
 
-Output: Dynamixel servos become set up so you can control the servos.
+Inputs:
 
-<ins>**closeServos()**</ins>
+Output:
 
-Inputs: Nothing
+<ins>**servo.closeServos()**</ins>
 
-Output: Connection to Dynamixel servos closes.
+Closes the connection to the Dynamixel servos.
+
+Inputs:
+
+Output:
+
+<ins>**servo(id: int, torqueOn: bool = True) -> servo**</ins>
+
+Constructor for servo class.
+
+Inputs:
+
+- id: ID value of a servo.
+- torqueOn: Whether or not the torque should be enabled upon construction (true by default).
+
+Outputs:
+
+- A servo object with the inputted ID value.
+
+<ins>**str(servo) -> str**</ins>
+
+String caster for servo class.
+
+Inputs:
+
+- Servo object.
+
+Outputs:
+
+- String that says "Servo \*self.id\*".
+
+<ins>**\_\_del\_\_**</ins>
+
+Destructor for servo class. Disables the servo's torque when called.
 
 ### Controlling Servos
 
 #### Torque Control
 
-<ins>**enableTorque(id: int) -> bool**</ins>
+<ins>**servo.enableTorque() -> bool**</ins>
 
-Inputs: id (servo id number)
+Turns on the torque of a servo (this will make it so the servo can move and hold it's position).
 
-Outputs: bool (whether it succeeded or not)
+Inputs:
 
-Attempts to turn on the torque of a servo with the inputted id value so it can be turned and hold its position.
+Outputs:
 
-<ins>**disableTorque(id: int) -> bool**</ins>
+- True if the communication with the servo succeeded, false if it didn't.
 
-Inputs: id (servo id number)
+<ins>**servo.disableTorque() -> bool**</ins>
 
-Outputs: bool (whether it succeeded or not)
+Turns off the torque of a servo (this will make it so the servo will be loose and no longer hold it's position, as well as disable movement control).
 
-Attempts to disable the torque of a servo with the inputted id value so it rotates freely now and doesn't hold it's position, but also can't be told to go to a certain angle.
+Inputs:
 
-<ins>**torqueOn(id: int) -> bool**</ins>
+Outputs:
 
-Inputs: id (servo id number)
+- True if the communication with the servo succeeded, false if it didn't.
 
-Outputs: bool (whether or not the servo with the inputted id has its torque on or off currently)
+<ins>**servo.torqueOn() -> bool**</ins>
+
+Returns true if a servo's torque is on or false if it's not.
+
+Inputs:
+
+Outputs:
+
+- True if the servo's torque is on, false if it's not or if the communication with the servo failed.
 
 #### Rotation Control
 
-<ins>**setAngle(id: int, angle: float) -> bool**</ins>
+<ins>**servo.setAngle(angle: float) -> bool**</ins>
 
-Inputs: id (servo id number), angle (angle to rotate servo to (0 - 359))
+Turns a servo to a specific angle between 0 and 359 degrees.
 
-Outputs: bool (whether it succeeded or not)
+Inputs:
 
-Attempts to turn a servo with the inputted id value to the inputted angle.
+- angle: Angle to rotate servo to (0 - 359).
 
-<ins>**setPos(id: int, pos: int) -> bool**</ins>
+Outputs:
 
-Inputs: id (servo id number), pos (position to rotate servo to (0 - 4095))
+- True if the inputted value was valid and the communication with the servo succeeded, false otherwise.
 
-Outputs: bool (whether it succeeded or not)
+<ins>**servo.setPos(pos: int) -> bool**</ins>
 
-Attempts to turn a servo with the inputted id value to the inputted position value.
+Turns a servo to a specific position value between 0 and 4095.
 
-<ins>**getAngle(id: int)**</ins>
+Inputs:
 
-Inputs: id (servo id number)
+- pos: Position to rotate servo to (0 - 4095).
 
-Outputs: float (current angle of servo), bool (returns a false value if it fails to communicate with servo)
+Outputs:
 
-Attemps to read and return the current angle of a servo with the inputted id value.
+- True if the inputted value was valid and the communication with the servo succeeded, false otherwise.
 
-<ins>**getPos(id: int)**</ins>
+<ins>**servo.getAngle()**</ins>
 
-Inputs: id (servo id number)
+Returns the current angle of a servo.
 
-Outputs: int (current position value of servo), bool (returns a false value if it fails to communicate with servo)
+Inputs:
 
-Attemps to read and return the current position value of a servo with the inputted id value.
+Outputs:
+
+- Current angle of servo.
+
+or
+
+- False if communication with the servo fails.
+
+<ins>**servo.getPos()**</ins>
+
+Returns the current position value of a servo.
+
+Inputs:
+
+Outputs:
+
+- Current position value of servo.
+
+or
+
+- False if communication with the servo fails.
+
+<ins>**servo.waitForAngle(angle: float, error: float = 100):
+
+Stalls the program until a servo reaches the inputted angle (or comes close enough, defined by the error input).
+
+Inputs:
+
+- angle: Angle to wait for servo to reach.
+- error: Number of position values away from the inputted angle that the servo can be for the function to end. Default is 100.
+
+Outputs:
+
+- Returns false if the inputted angle is not between 0 and 359.
+
+<ins>**servo.waitForPos(pos: int, error: float = 100):
+
+Stalls the program until a servo reaches the inputted position value (or comes close enough, defined by the error input).
+
+Inputs:
+
+- pos: Position value to wait for servo to reach.
+- error: Number of position values away from the inputted position value that the servo can be for the function to end. Default is 100.
+
+Outputs:
+
+- Returns false if the inputted position value is not between 0 and 4095.
+
+#### Speed Control
+
+<ins>**setRPM(rpm: float) -> bool**</ins>
+
+Sets the max speed a servo turns at in RPM units (rotations per minue). Min is 0.229, max is 103.
+
+Inputs:
+
+- rpm: Max rotations per minute that the servo will rotate at (0.229 to 103).
+
+Outputs:
+
+- True if the inputted value was valid and the communication with the servo succeeded, false otherwise.
+
+<ins>**setVel(vel: int) -> bool**</ins>
+
+Sets the max speed a servo turns at in servo velocity units. Min is 1, max is 450.
+
+Inputs:
+
+- vel: Max servo velocity units that the servo will rotate at (1 to 450).
+
+Outputs:
+
+- True if the inputted value was valid and the communication with the servo succeeded, false otherwise.
