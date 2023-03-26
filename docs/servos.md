@@ -64,7 +64,7 @@ Outputs:
 
 - String that says "Servo \*self.id\*".
 
-<ins>**\_\_del\_\_**</ins>
+<ins>**del**</ins>
 
 Destructor for servo class. Disables the servo's torque when called.
 
