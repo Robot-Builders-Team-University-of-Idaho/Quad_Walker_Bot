@@ -2,7 +2,7 @@
 
 [servos.py](/src/robot_parts/servos.py)
 
-# Making Sure Values Are Correct
+## Making Sure Values Are Correct
 
 Make sure the values
 ```
@@ -17,9 +17,7 @@ The model we are currently using is the [XL330-M288-T](https://emanual.robotis.c
 
 Also make sure that `device_path` is correctly linked to the USB port that the servos are plugged into as well so the program can communicate with the servos.
 
-# Servo Class
-
-## Functions
+## Servo Class
 
 ### Starting Up and Shutting Down Servos
 
