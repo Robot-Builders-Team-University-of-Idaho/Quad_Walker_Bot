@@ -17,6 +17,8 @@ are correct for the model of dynamixel servos that you are using.
 
 <ins>**angleToPos(angle: float) -> int**</ins>
 
+Converts an angle value to a servo position value.
+
 Inputs:
 
 - angle: Angle to convert to servo position value
@@ -26,6 +28,8 @@ Outputs:
 - Servo position value that is approximately equal to the inputted angle
 
 <ins>**posToAngle(pos: int) -> float**</ins>
+
+Converts a servo position value to an angle value.
 
 Inputs
 
@@ -37,6 +41,8 @@ Outputs:
 
 <ins>**rpmToVel(rpm: float) -> int**</ins>
 
+Converts an rpm (rotations per minute) value to a servo velocity value.
+
 Inputs:
 
 - rpm: Rotation per minute value to convert to a servo velocity value
@@ -46,6 +52,8 @@ Outputs:
 - Servo velocity value that is approximately equal to the inputted rpm value
 
 <ins>**velToRPM(vel: int) -> float**</ins>
+
+Converts a servo velocity value to an rpm (rotations per minute) value.
 
 Inputs:
 
