@@ -51,6 +51,9 @@ protocol_version = 2.0
 # Initialize PacketHandler object to use read and write values to servos
 packet_handler = PacketHandler(protocol_version)
 
+# list to keep track of servos that are currently in use
+active_servos = []
+
 class servo:
 	########################################################################################################################
 	#
@@ -77,6 +80,11 @@ class servo:
 	# Closes the connection / port to the servos
 	# Use this when you're done with the servos / at the end of your program
 	def close():
+		# disable torque on all active servos and remove them from list
+		for s in active_servos:
+			s.torqueOff()
+			active_servos.remove(s)
+		
 		port_num.closePort()
 	
 	# Constructor
@@ -84,6 +92,8 @@ class servo:
 	# torqueOn = whether or not the torque is enabled or disabled when the servo is constructed
 	def __init__(self, id: int, torqueOn: bool = True):
 		self.id = id
+		# adds servo object to list of servos that are currently in use
+		active_servos.append(self)
 		if torqueOn:
 			self.torqueOn()
 	
@@ -93,7 +103,9 @@ class servo:
 	
 	# Destructor
 	def __del__(self):
-		self.torqueOff()
+		if self in active_servos:
+			self.torqueOff()
+			active_servos.remove(self)
 
 	########################################################################################################################
 	#
