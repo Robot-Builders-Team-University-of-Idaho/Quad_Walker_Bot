@@ -13,7 +13,7 @@ baudate
 ```
 are correct for the model of dynamixel servos that you are using.
 
-The model we are currently using is the [XL330-M288-T](https://emanual.robotis.com/docs/en/dxl/x/xl330-m288/)
+The model we are currently using is the [XL330-M288-T](https://emanual.robotis.com/docs/en/dxl/x/xl330-m288/).
 
 Also make sure that `device_path` is correctly linked to the USB port that the servos are plugged into as well so the program can communicate with the servos.
 
