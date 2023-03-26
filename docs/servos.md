@@ -156,7 +156,7 @@ or
 
 - False if communication with the servo fails.
 
-<ins>**servo.waitForAngle(angle: float, error: float = 100):
+<ins>**servo.waitForAngle(angle: float, error: float = 100)**</ins>
 
 Stalls the program until a servo reaches the inputted angle (or comes close enough, defined by the error input).
 
@@ -169,7 +169,7 @@ Outputs:
 
 - Returns false if the inputted angle is not between 0 and 359.
 
-<ins>**servo.waitForPos(pos: int, error: float = 100):
+<ins>**servo.waitForPos(pos: int, error: float = 100)**</ins>
 
 Stalls the program until a servo reaches the inputted position value (or comes close enough, defined by the error input).
 
