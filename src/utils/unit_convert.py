@@ -3,7 +3,7 @@
 #
 # University of Idaho Robotics Club, Mobile Robot Team
 #
-# Library to convert between units
+# Module to convert between units
 #
 # Authors / Contributors:
 # Chandler Calkins (Fall 2022 - Spring 2023)

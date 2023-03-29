@@ -111,7 +111,7 @@ TLDR: Lowercase snake casing
 
 Variable names will follow the same naming convention as file names.
 
-Examples of lower camel casing:
+Examples of lowercase snake casing:
 
 ```
 tree_node

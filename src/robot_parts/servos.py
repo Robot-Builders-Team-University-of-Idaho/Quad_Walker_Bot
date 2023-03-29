@@ -3,7 +3,7 @@
 #
 # University of Idaho Robotics Club, Mobile Robot Team
 #
-# Library to control Dynamixel XL330-M288-T servos for the Quad Leg Walker Robot
+# Module to control Dynamixel XL330-M288-T servos for the Quad Leg Walker Robot
 #
 # Authors / Contributors:
 # Chandler Calkins (Fall 2022 - Spring 2023)
@@ -90,16 +90,26 @@ class servo:
 	# Constructor
 	# id = id number of the servo
 	# torqueOn = whether or not the torque is enabled or disabled when the servo is constructed
-	def __init__(self, id: int, torqueOn: bool = True):
+	def __init__(self, id: int, torque_on: bool = True):
+		# if id isn't an int
+		if type(id) is not int:
+			raise TypeError("id parameter for servo constructor must be int between 1 and 253.")
+		# if torque_on isn't a bool
+		if type(torque_on) is not bool:
+			raise TypeError("torque_on parameter for servo constructor must be bool.")
+		# if id is out of range (1 - 253)
+		if id < 1 or id > 253:
+			raise ValueError("id parameter for servo constructor must be int between 1 and 253.")
+
 		self.id = id
 		# adds servo object to list of servos that are currently in use
 		active_servos.append(self)
-		if torqueOn:
+		if torque_on:
 			self.torqueOn()
 	
 	# String casting function
 	def __str__(self):
-		return f"Servo {self.id}"
+		return f"Servo({self.id})"
 	
 	# Destructor
 	def __del__(self):
@@ -189,10 +199,13 @@ class servo:
 	# Set angle of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
 	def setAngle(self, angle: float) -> bool:
+		# make sure angle is right type
+		if type(angle) is not float and type(angle) is not int:
+			raise TypeError(f"angle parameter must be of type float (or int) between {min_angle} and {max_angle}.")
 		# make sure the angle is within range
 		if angle < min_angle or angle > max_angle:
-			print(f"Servo {self.id} (setAngle): Angle {angle} is out of range ({min_angle} - {max_angle})")
-			return False
+			raise ValueError(f"angle parameter must be of type float (or int) between {min_angle} and {max_angle}.")
+		
 		# convert angle to position value and send it to goal position address
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_goal_pos, angleToPos(angle))
 		# check for errors returned from servo
@@ -208,10 +221,13 @@ class servo:
 	# Set the position of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
 	def setPos(self, pos: int) -> bool:
+		# make sure pos is the right type
+		if type(pos) is not int:
+			raise TypeError(f"pos parameter must be of type int between {min_pos} and {max_pos}.")
 		# make sure the position is within range
 		if pos < min_pos or pos > max_pos:
-			print(f"Servo {self.id} (setPos): Position {pos} is out of range ({min_pos} - {max_pos})")
-			return False
+			raise ValueError(f"pos parameter must be of type int between {min_pos} and {max_pos}.")
+		
 		# send position value to goal position address
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_goal_pos, pos)
 		# check for errors returned from servo
@@ -258,10 +274,13 @@ class servo:
 	# angle = angle to wait for servo to reach
 	# error = number of position values away from angle to cause the wait to end if the servo comes within that range
 	def waitForAngle(self, angle: float, error: float = 100):
+		# make sure angle is right type
+		if type(angle) is not float and type(angle) is not int:
+			raise TypeError(f"angle parameter must be of type float (or int) between {min_angle} and {max_angle}.")
 		# make sure the angle is within range
 		if angle < min_angle or angle > max_angle:
-			print(f"Servo {self.id} (waitForAngle): Angle {angle} is out of range ({min_angle} - {max_angle})")
-			return False
+			raise ValueError(f"angle parameter must be of type float (or int) between {min_angle} and {max_angle}.")
+		
 		# get the current position
 		curr_pos = self.getPos()
 		# wait time time resolution
@@ -279,10 +298,13 @@ class servo:
 	# pos = position to wait for servo to reach
 	# error = number of position values away from pos to cause the wait to end if the servo comes within that range
 	def waitForPos(self, pos: int, error: float = 100):
+		# make sure pos is the right type
+		if type(pos) is not int:
+			raise TypeError(f"pos parameter must be of type int between {min_pos} and {max_pos}.")
 		# make sure the position is within range
 		if pos < min_pos or pos > max_pos:
-			print(f"Servo {self.id} (waitForPos): Position {pos} is out of range ({min_pos} - {max_pos})")
-			return False
+			raise ValueError(f"pos parameter must be of type int between {min_pos} and {max_pos}.")
+		
 		# get the current position
 		curr_pos = self.getPos()
 		# wait time time resolution
@@ -314,10 +336,13 @@ class servo:
 	# Sets the RPM (rotations per minute) of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
 	def setRPM(self, rpm: float) -> bool:
-		# make sure the velocity is within range
+		# make sure rpm is right type
+		if type(rpm) is not float and type(rpm) is not int:
+			raise TypeError(f"rpm parameter must be of type float (or int) between {min_rpm} and {max_rpm}.")
+		# make sure the rpm is within range
 		if rpm < min_rpm or rpm > max_rpm:
-			print(f"Servo {self.id} (setRPM): RPM {rpm} is out of range ({min_rpm} - {max_rpm})")
-			return False
+			raise ValueError(f"rpm parameter must be of type float (or int) between {min_rpm} and {max_rpm}.")
+		
 		# convert rpm to velocity value and send it to profile velocity address
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_pro_vel, rpmToVel(rpm))
 		# check for errors returned from servo
@@ -333,10 +358,13 @@ class servo:
 	# Sets the velocity of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
 	def setVel(self, vel: int) -> bool:
+		# make sure vel is the right type
+		if type(vel) is not int:
+			raise TypeError(f"vel parameter must be of type int between {min_vel} and {max_vel}.")
 		# make sure the velocity is within range
 		if vel < min_vel or vel > max_vel:
-			print(f"Servo {self.id} (setVel): Velocity {vel} is out of range ({min_vel} - {max_vel})")
-			return False
+			raise ValueError(f"vel parameter must be of type int between {min_vel} and {max_vel}.")
+		
 		# send velocity value to profile velocity address
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_pro_vel, vel)
 		# check for errors returned from servo
