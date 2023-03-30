@@ -50,6 +50,12 @@ Outputs:
 
 - A servo object with the inputted ID value.
 
+<ins>**del**</ins>
+
+Destructor for servo class. Disables the servo's torque when called.
+
+## Utility
+
 <ins>**str(servo) -> str**</ins>
 
 String caster for servo class.
@@ -60,11 +66,22 @@ Inputs:
 
 Outputs:
 
-- String that says "Servo \*self.id\*".
+- String that says "Servo(\*self.id\*)".
 
-<ins>**del**</ins>
+<ins>**servo.\_\_commErrorCheck(result, error, func_name: str) -> bool**</ins>
 
-Destructor for servo class. Disables the servo's torque when called.
+Checks for errors from a communication attempt with a servo.
+
+Inputs:
+
+- result: The result value of a communication with a servo.
+- error: The error value of a communication with a servo.
+- func_name: The name of the function that is currently checking the communication (so the error message can say where is happened if there is an error).
+
+Outputs:
+
+- True if there were no errors with the communication attempt.
+- False if there was an error with the communication attempt.
 
 ## Torque Control
 
@@ -142,11 +159,7 @@ Inputs:
 
 Outputs:
 
-- Current angle of servo.
-
-or
-
-- False if communication with the servo fails.
+- Current angle of the servo if the communication succeeds, false otherwise.
 
 <ins>**servo.getPos()**</ins>
 
@@ -156,11 +169,7 @@ Inputs:
 
 Outputs:
 
-- Current position value of servo.
-
-or
-
-- False if communication with the servo fails.
+- Current position value of the servo if the communication succeeds, false otherwise.
 
 <ins>**servo.waitForAngle(angle: float, error: float = 100)**</ins>
 
@@ -173,8 +182,6 @@ Inputs:
 
 Outputs:
 
-- Returns false if the inputted angle is not between 0 and 359.
-
 <ins>**servo.waitForPos(pos: int, error: float = 100)**</ins>
 
 Stalls the program until a servo reaches the inputted position value (or comes close enough, defined by the error input).
@@ -185,8 +192,6 @@ Inputs:
 - error: Number of position values away from the inputted position value that the servo can be for the function to end. Default is 100.
 
 Outputs:
-
-- Returns false if the inputted position value is not between 0 and 4095.
 
 ## Speed Control
 
@@ -209,6 +214,52 @@ Sets the max speed a servo turns at in servo velocity units. Min is 1, max is 45
 Inputs:
 
 - vel: Max servo velocity units that the servo will rotate at (1 to 450).
+
+Outputs:
+
+- True if the inputted value was valid and the communication with the servo succeeded, false otherwise.
+
+<ins>**getRPM()**</ins>
+
+Returns the current speed of a servo in rpm (rotations per minute).
+
+Inputs:
+
+Outputs:
+
+- Current rpm of the servo if the communication succeeds, false otherwise.
+
+<ins>**getVel()**</ins>
+
+Returns the current speed of a servo in servo velocity units.
+
+Inputs:
+
+Outputs:
+
+- Current velocity value of the servo if the communication succeeds, false otherwise.
+
+## Acceleration Control
+
+<ins>**setRPM2(rpm2: float) -> bool**</ins>
+
+Sets the acceleration of a servo in RPM^2 (rotations per minute squared) units. Min is 214.577, max is 7,031,044.56.
+
+Inputs:
+
+- rpm2: The speed at which a servo will reach max speed and slow down to a stop while rotating / changing position.
+
+Outputs:
+
+- True if the inputted value was valid and the communication with the servo succeeded, false otherwise.
+
+<ins>**setAccel(accel: int) -> bool**</ins>
+
+Sets the acceleration of a servo. Min is 1, max is 32,767.
+
+Inputs:
+
+- accel: The speed at which a servo will reach max speed and slow down to a stop while rotating / changing position.
 
 Outputs:
 
