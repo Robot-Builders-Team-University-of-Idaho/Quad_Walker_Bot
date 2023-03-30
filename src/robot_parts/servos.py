@@ -37,8 +37,6 @@ addr_pro_vel = 112
 addr_curr_vel = 128
 # Address for setting a servo's acceleration to get up to max speed and get down to a stop when changing position
 addr_pro_acl = 108
-# Address for whether or not the servo is currently moving
-addr_is_moving = 122
 # Bits per second that gets transmitted across the servo connection
 baudrate = 57600 # TODO: see if this value can be changed to something between 9,600 and 4,500,000 (higher is better)
 
@@ -454,45 +452,3 @@ class servo:
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_pro_acl, accel)
 		# check for errors returned from servo
 		return self.__commErrorCheck(result, error, "setAccel")
-	
-	# Reads the current RPM^2 (rotations per minute squared) of the servo
-	# Returns false if the servo wasn't read from successfully
-	def getRPM2(self):
-		# request current value at moving address
-		is_moving, result, error = packet_handler.read1ByteTxRx(port_num, self.id, addr_is_moving)
-		# check for errors returned from servo
-		if not self.__commErrorCheck(result, error, "getRPM2"):
-			return False
-		
-		# if the servo is currently moving, return the profile acceleration converted to RPM^2
-		if bool(is_moving):
-			# request current value at profile acceleration address
-			accel, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_pro_acl)
-			# check for errors returned from servo
-			if not self.__commErrorCheck(result, error, "getRPM2"):
-				return False
-			
-			return accelToRPM2(accel)
-		else:
-			return 0
-	
-	# Reads the current RPM^2 (rotations per minute squared) of the servo
-	# Returns false if the servo wasn't read from successfully
-	def getAccel(self):
-		# request current value at moving address
-		is_moving, result, error = packet_handler.read1ByteTxRx(port_num, self.id, addr_is_moving)
-		# check for errors returned from servo
-		if not self.__commErrorCheck(result, error, "getAccel"):
-			return False
-		
-		# if the servo is currently moving, return the profile acceleration
-		if bool(is_moving):
-			# request current value at profile acceleration address
-			accel, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_pro_acl)
-			# check for errors returned from servo
-			if not self.__commErrorCheck(result, error, "getAccel"):
-				return False
-			
-			return accel
-		else:
-			return 0
