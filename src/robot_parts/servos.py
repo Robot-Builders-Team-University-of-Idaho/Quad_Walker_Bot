@@ -30,10 +30,15 @@ addr_torque = 64
 addr_goal_pos = 116
 # Address of a servo's current position
 addr_curr_pos = 132
-# Address for setting a new max velocity that the servo can rotate at while changing position (0 by default, which means inifinte speed)
+# Address for setting a new max velocity that the servo can rotate at while changing position
+# (0 by default, which means inifinte / max speed)
 addr_pro_vel = 112
 # Address of a servo's current velocity
 addr_curr_vel = 128
+# Address for setting a servo's acceleration to get up to max speed and get down to a stop when changing position
+addr_pro_acl = 108
+# Address for whether or not the servo is currently moving
+addr_is_moving = 122
 # Bits per second that gets transmitted across the servo connection
 baudrate = 57600 # TODO: see if this value can be changed to something between 9,600 and 4,500,000 (higher is better)
 
@@ -81,9 +86,9 @@ class servo:
 	# Use this when you're done with the servos / at the end of your program
 	def close():
 		# disable torque on all active servos and remove them from list
-		for s in active_servos:
-			s.torqueOff()
-			active_servos.remove(s)
+		#for s in active_servos:
+		#	s.torqueOff()
+		#	active_servos.remove(s)
 		
 		port_num.closePort()
 	
@@ -107,15 +112,41 @@ class servo:
 		if torque_on:
 			self.torqueOn()
 	
+	# Destructor
+	#def __del__(self):
+	#	if self in active_servos:
+	#		self.torqueOff()
+	#		active_servos.remove(self)
+
+	########################################################################################################################
+	#
+	#
+	# Utility Functions
+	#
+	#
+	########################################################################################################################
+
 	# String casting function
 	def __str__(self):
 		return f"Servo({self.id})"
 	
-	# Destructor
-	def __del__(self):
-		if self in active_servos:
-			self.torqueOff()
-			active_servos.remove(self)
+	# Checks for communication errors
+	# Returns true if there were no errors, false if there was an error
+	def __comm_error_check(self, result, error, func_name: str) -> bool:
+		# make sure func_name is a string
+		if type(func_name) is not str:
+			raise TypeError("func_name parameter for __comm_error_check must be a string of the name of the function you're checking for a communication error in.")
+		
+		# check for errors returned from trying to communicate with the servo
+		if result != COMM_SUCCESS:
+			# used to be "print("%s" % packet_handler.getTxRxResult(result))"
+			print(f"Servo {self.id} ({func_name}): {packet_handler.getTxRxResult(result)}")
+			return False
+		elif error != 0:
+			print(f"Servo {self.id} ({func_name}): {packet_handler.getRxPacketError(error)}")
+			return False
+		
+		return True
 
 	########################################################################################################################
 	#
@@ -131,15 +162,7 @@ class servo:
 		# send value of 1 to torque address
 		result, error = packet_handler.write1ByteTxRx(port_num, self.id, addr_torque, 1)
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			# used to be "print("%s" % packet_handler.getTxRxResult(result))"
-			print(f"Servo {self.id} (enableTorque): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (enableTorque): {packet_handler.getRxPacketError(error)}")
-			return False
-
-		return True
+		return self.__comm_error_check(result, error, "torqueOn")
 
 	# Turns off the torque of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
@@ -147,25 +170,14 @@ class servo:
 		# send value of 0 to torque address
 		result, error = packet_handler.write1ByteTxRx(port_num, self.id, addr_torque, 0)
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (disableTorque): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (disableTorque): {packet_handler.getRxPacketError(error)}")
-			return False
-
-		return True
+		return self.__comm_error_check(result, error, "torqueOff")
 
 	# Returns true if the servo's torque is on, false if it isn't or if there was an error
 	def torqueIsOn(self) -> bool:
 		# request current value at torque address
 		value, result, error = packet_handler.read1ByteTxRx(port_num, self.id, addr_torque)
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (torqueOn): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (torqueOn): {packet_handler.getRxPacketError(error)}")
+		if not self.__comm_error_check(result, error, "torqueIsOn"):
 			return False
 		
 		return bool(value)
@@ -175,11 +187,7 @@ class servo:
 		# request current value at torque address
 		value, result, error = packet_handler.read1ByteTxRx(port_num, self.id, addr_torque)
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (torqueOn): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (torqueOn): {packet_handler.getRxPacketError(error)}")
+		if not self.__comm_error_check(result, error, "torqueIsOn"):
 			return False
 		
 		return not bool(value)
@@ -187,7 +195,7 @@ class servo:
 	########################################################################################################################
 	#
 	#
-	# Servo Rotation
+	# Servo Position
 	#
 	# Note: Angles and Positions (pos) are basically the same thing, except angles are floats that range from 0 to 359, and
 	# positions are ints that range from 0 to 4095. The servos use position values internally, but angles are simpler to use
@@ -209,14 +217,7 @@ class servo:
 		# convert angle to position value and send it to goal position address
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_goal_pos, angleToPos(angle))
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (setAngle): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (setAngle): {packet_handler.getRxPacketError(error)}")
-			return False
-		
-		return True
+		return self.__comm_error_check(result, error, "setAngle")
 
 	# Set the position of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
@@ -231,26 +232,15 @@ class servo:
 		# send position value to goal position address
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_goal_pos, pos)
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (setPos): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (setPos): {packet_handler.getRxPacketError(error)}")
-			return False
-		
-		return True
+		return self.__comm_error_check(result, error, "setPos")
 
 	# Reads and returns the current angle of a servo
 	# Returns false if the servo wasn't read from successfully
 	def getAngle(self):
-		# request current value at current position address
+		# request current value at present position address
 		current_position, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_curr_pos)
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (getAngle): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (getAngle): {packet_handler.getRxPacketError(error)}")
+		if not self.__comm_error_check(result, error, "getAngle"):
 			return False
 
 		return posToAngle(current_position)
@@ -258,14 +248,10 @@ class servo:
 	# Reads and returns the current position of a servo
 	# returns false if the servo wasn't read from successfully
 	def getPos(self):
-		# request current value at current position address
+		# request current value at present position address
 		current_position, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_curr_pos)
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (getPos): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (getPos): {packet_handler.getRxPacketError(error)}")
+		if not self.__comm_error_check(result, error, "getPos"):
 			return False
 
 		return current_position
@@ -281,18 +267,39 @@ class servo:
 		if angle < min_angle or angle > max_angle:
 			raise ValueError(f"angle parameter must be of type float (or int) between {min_angle} and {max_angle}.")
 		
+		# function to get the current position and check for errors
+		def currPos() -> int:
+			# get the current position
+			curr_pos = self.getPos()
+			# check for communication errors
+			if type(curr_pos) is bool and curr_pos == False:
+				raise IOError(f"Failed to communicate with servo {self.id}.")
+			
+			return curr_pos
+		
 		# get the current position
-		curr_pos = self.getPos()
+		curr_pos = currPos()
+		# check for communication errors
+		if type(curr_pos) is bool and curr_pos == False:
+			raise IOError(f"Failed to communicate with servo {self.id}.")
 		# wait time time resolution
 		time_res = 0.000001
 		# get the position value of the angle
 		pos = angleToPos(angle)
 		if curr_pos < pos:
-			while self.getPos() < pos - error:
+			# get the current position
+			curr_pos = currPos()
+			while curr_pos < pos - error:
 				time.sleep(time_res)
+				# get the current position
+				curr_pos = currPos()
 		elif curr_pos > pos:
-			while self.getPos() > pos + error:
+			# get the current position
+			curr_pos = currPos()
+			while curr_pos > pos + error:
 				time.sleep(time_res)
+				# get the current position
+				curr_pos = currPos()
 	
 	# Waits for a servo to get to a certain position
 	# pos = position to wait for servo to reach
@@ -305,21 +312,39 @@ class servo:
 		if pos < min_pos or pos > max_pos:
 			raise ValueError(f"pos parameter must be of type int between {min_pos} and {max_pos}.")
 		
+		# function to get the current position and check for errors
+		def currPos() -> int:
+			# get the current position
+			curr_pos = self.getPos()
+			# check for communication errors
+			if type(curr_pos) is bool and curr_pos == False:
+				raise IOError(f"Failed to communicate with servo {self.id}.")
+			
+			return curr_pos
+		
 		# get the current position
-		curr_pos = self.getPos()
+		curr_pos = currPos()
 		# wait time time resolution
 		time_res = 0.000001
 		if curr_pos < pos:
-			while self.getPos() < pos - error:
+			# get the current position
+			curr_pos = currPos()
+			while curr_pos < pos - error:
 				time.sleep(time_res)
+				# get the current position
+				curr_pos = currPos()
 		elif curr_pos > pos:
-			while self.getPos() > pos + error:
+			# get the current position
+			curr_pos = currPos()
+			while curr_pos > pos + error:
 				time.sleep(time_res)
+				# get the current position
+				curr_pos = currPos()
 
 	########################################################################################################################
 	#
 	#
-	# Speed Control
+	# Servo Speed
 	#
 	# Note: RPM (rotations per minute) and velocity values (vel) are basically the same thing, except rpms are floats that
 	# range from 0.229 to 103, and velocity values are ints that range from 1 to 450. The servos use velocity values
@@ -346,14 +371,7 @@ class servo:
 		# convert rpm to velocity value and send it to profile velocity address
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_pro_vel, rpmToVel(rpm))
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (setRPM): {packet_handler.getTxRxResult(result)}")
-			return False
-		elif error != 0:
-			print(f"Servo {self.id} (setRPM): {packet_handler.getRxPacketError(error)}")
-			return False
-		
-		return True
+		return self.__comm_error_check(result, error, "setRPM")
 
 	# Sets the velocity of a servo
 	# Returns true if it successfully wrote to the servo, false if it didn't
@@ -368,11 +386,113 @@ class servo:
 		# send velocity value to profile velocity address
 		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_pro_vel, vel)
 		# check for errors returned from servo
-		if result != COMM_SUCCESS:
-			print(f"Servo {self.id} (setVel): {packet_handler.getTxRxResult(result)}")
+		return self.__comm_error_check(result, error, "setVel")
+	
+	# Reads the current RPM of the servo
+	# Returns false if the servo wasn't read from successfully
+	def getRPM(self):
+		# request current value at present velocity address
+		current_velocity, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_curr_vel)
+		# check for errors returned from servo
+		if not self.__comm_error_check(result, error, "getRPM"):
 			return False
-		elif error != 0:
-			print(f"Servo {self.id} (setVel): {packet_handler.getRxPacketError(error)}")
+
+		return rpmToVel(current_velocity)
+	
+	# Reads the current velocity of the servo
+	# Returns false if the servo wasn't read from successfully
+	def getRPM(self):
+		# request current value at present velocity address
+		current_velocity, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_curr_vel)
+		# check for errors returned from servo
+		if not self.__comm_error_check(result, error, "getVel"):
+			return False
+
+		return current_velocity
+	
+	########################################################################################################################
+	#
+	#
+	# Servo Acceleration
+	#
+	# Note: RPM^2 (rotations per minute squared) and acceleration values (accel) are basically the same thing, except rpm2s
+	# are floats that range from 214.577 to 7,031,044.56, and acceleration values are ints that range from 1 to 32,767. The
+	# servos use acceleration values internally, but it can be simpler to use rpm2 sometimes.
+	#
+	# Note: Acceleration values are measured on the servos in units of 214.577 rpm2 and range from 0 to 32,767. The default
+	# acceleration value is 0, which means inifite acceleration and is basically the same as 32,767.
+	#
+	#
+	########################################################################################################################
+
+	# Sets the RPM^2 (rotations per minute squared) of a servo
+	# Returns true if it successfully wrote to the servo, false if it didn't
+	def setRPM2(self, rpm2: float) -> bool:
+		# make sure rpm is right type
+		if type(rpm2) is not float and type(rpm2) is not int:
+			raise TypeError(f"rpm2 parameter must be of type float (or int) between {min_rpm2} and {max_rpm2}.")
+		# make sure the rpm is within range
+		if rpm2 < min_rpm2 or rpm2 > max_rpm2:
+			raise ValueError(f"rpm2 parameter must be of type float (or int) between {min_rpm2} and {max_rpm2}.")
+		
+		# convert rpm2 to acceleration value and send it to profile acceleration address
+		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_pro_vel, rpm2ToAccel(rpm2))
+		# check for errors returned from servo
+		return self.__comm_error_check(result, error, "setRPM2")
+	
+	# Sets the acceleration of a servo
+	# Returns true if it successfully wrote to the servo, false if it didn't
+	def setAccel(self, accel: int) -> bool:
+		# make sure accel is the right type
+		if type(accel) is not int:
+			raise TypeError(f"accel parameter must be of type int between {min_accel} and {max_accel}.")
+		# make sure the velocity is within range
+		if accel < min_accel or accel > max_accel:
+			raise ValueError(f"accel parameter must be of type int between {min_accel} and {max_accel}.")
+		
+		# send acceleration value to profile acceleration address
+		result, error = packet_handler.write4ByteTxRx(port_num, self.id, addr_pro_acl, accel)
+		# check for errors returned from servo
+		return self.__comm_error_check(result, error, "setAccel")
+	
+	# Reads the current RPM^2 (rotations per minute squared) of the servo
+	# Returns false if the servo wasn't read from successfully
+	def getRPM2(self):
+		# request current value at moving address
+		is_moving, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_is_moving)
+		# check for errors returned from servo
+		if not self.__comm_error_check(result, error, "getRPM2"):
 			return False
 		
-		return True
+		# if the servo is currently moving, return the profile acceleration converted to RPM^2
+		if bool(is_moving):
+			# request current value at profile acceleration address
+			accel, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_pro_acl)
+			# check for errors returned from servo
+			if not self.__comm_error_check(result, error, "getRPM2"):
+				return False
+			
+			return accelToRPM2(accel)
+		else:
+			return 0
+	
+	# Reads the current RPM^2 (rotations per minute squared) of the servo
+	# Returns false if the servo wasn't read from successfully
+	def getAccel(self):
+		# request current value at moving address
+		is_moving, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_is_moving)
+		# check for errors returned from servo
+		if not self.__comm_error_check(result, error, "getAccel"):
+			return False
+		
+		# if the servo is currently moving, return the profile acceleration
+		if bool(is_moving):
+			# request current value at profile acceleration address
+			accel, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_pro_acl)
+			# check for errors returned from servo
+			if not self.__comm_error_check(result, error, "getAccel"):
+				return False
+			
+			return accel
+		else:
+			return 0

@@ -21,6 +21,11 @@ max_rpm = 103
 min_vel = 1
 max_vel = 450
 
+min_rpm2 = 214.577
+max_rpm2 = 7_031_044.56
+min_accel = 1
+max_accel = 32_767
+
 # Convert angle to position value that dynamixel servo can read
 def angleToPos(angle: float) -> int:
 	# throw exception if parameter is outside range
@@ -72,3 +77,29 @@ def velToRPM(vel: int) -> float:
 	if rpm < min_rpm: rpm = min_rpm
 	if rpm > max_rpm: rpm = max_rpm
 	return rpm
+
+# Convert RPM^2 (rotations per minute squared) to Dynamixel acceleration value
+def rpm2ToAccel(rpm2: float) -> int:
+	# throw exception if parameter is outside range
+	if rpm2 < min_rpm2 or rpm2 > max_rpm2:
+		raise ValueError(f"RPM^2 must be between {min_rpm2} and {min_rpm2}")
+
+	# use cross multiplication to solve for converted value
+	accel = rpm2 * max_accel / max_rpm2
+	# round position to min / max in case the conversion makes it step out of range
+	if accel < min_accel: accel = min_accel
+	if accel > max_accel: accel = max_accel
+	return accel
+
+# Convert dynamixel servo acceleration value to RPM^2 (rotations per minute squared)
+def accelToRPM2(accel: int) -> float:
+	# throw exception if parameter is outside range
+	if accel < min_accel or accel > max_accel:
+		raise ValueError(f"Acceleration must be between {min_accel} and {min_accel}")
+
+	# use cross multiplication to solve for converted value
+	rpm2 = accel * max_rpm2 / max_accel
+	# round position to min / max in case the conversion makes it step out of range
+	if rpm2 < min_rpm2: rpm2 = min_rpm2
+	if rpm2 > max_rpm2: rpm2 = max_rpm2
+	return rpm2
