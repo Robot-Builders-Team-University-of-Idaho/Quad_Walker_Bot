@@ -459,7 +459,7 @@ class servo:
 	# Returns false if the servo wasn't read from successfully
 	def getRPM2(self):
 		# request current value at moving address
-		is_moving, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_is_moving)
+		is_moving, result, error = packet_handler.read1ByteTxRx(port_num, self.id, addr_is_moving)
 		# check for errors returned from servo
 		if not self.__commErrorCheck(result, error, "getRPM2"):
 			return False
@@ -480,7 +480,7 @@ class servo:
 	# Returns false if the servo wasn't read from successfully
 	def getAccel(self):
 		# request current value at moving address
-		is_moving, result, error = packet_handler.read4ByteTxRx(port_num, self.id, addr_is_moving)
+		is_moving, result, error = packet_handler.read1ByteTxRx(port_num, self.id, addr_is_moving)
 		# check for errors returned from servo
 		if not self.__commErrorCheck(result, error, "getAccel"):
 			return False
