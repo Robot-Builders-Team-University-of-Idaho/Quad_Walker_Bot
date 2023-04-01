@@ -71,7 +71,8 @@ unit_test.py
 
 TLDR: All doc files should be ".md" files, have markdown formatting to make it look nice, and be well written.
 
-All documentation files should be ".md" text files so they can be easily read on GitHub. Be sure to include some decent formatting as well to make it look nice.
+All documentation files should be ".md" text files so they can be easily read on GitHub.
+Be sure to include some decent formatting as well to make it look nice.
 
 [Here's a tutorial on how to use markdown formatting.](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax)
 
@@ -79,9 +80,18 @@ Make sure that your documentation files are well organized and clearly written a
 
 ## Class / Custome Type Names
 
-TLDR: Upper camel case
+TLDR: All lowercase if 1 word, upper camel case if multiple words.
 
-Class names and other custom type names will be defined in upper camel casing. This means that the first letter of each class and custom type should be uppercase as well as the first letter of other words in the name.
+Class names and other custom type names will be defined in all lowercase if it's only 1 word and upper camel casing if it's multiple words.
+Upper camel casing means that the first letter of each class and custom type should be uppercase as well as the first letter of other words in the name.
+
+Examples of all lowercasing:
+
+```
+servo
+leg
+query
+```
 
 Examples of upper camel casing:
 
