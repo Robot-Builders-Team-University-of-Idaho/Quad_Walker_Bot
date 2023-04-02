@@ -1,9 +1,57 @@
-from robot_parts.servos import *
+from robot_parts.legs import *
 import time
 
 servo.connect()
 
-legs = 4
+# initialize legs and servos
+leg_count = 4
+legs = []
+for i in range(leg_count):
+	n = i * 2 + i + 1
+	legs.append(leg(n, n+1, n+2))
+
+# set all joints to straight
+for i in range(leg_count):
+	legs[i].a.setAngle(180)
+	legs[i].b.setAngle(180)
+	legs[i].c.setAngle(180)
+
+for i in range(leg_count):
+	legs[i].a.waitForAngle(180)
+	legs[i].b.waitForAngle(180)
+	legs[i].c.waitForAngle(180)
+
+# make jobo stand up
+for i in range(leg_count):
+	legs[i].b.setAngle(200)
+	legs[i].c.setAngle(150)
+
+for i in range(leg_count):
+	legs[i].b.waitForAngle(200)
+	legs[i].c.waitForAngle(150)
+
+# make jobo stand up a bit taller
+for i in range(leg_count):
+	legs[i].b.setAngle(150)
+
+for i in range(leg_count):
+	legs[i].b.waitForAngle(150)
+
+# make jobo twist back and forth a few times
+for i in range(5):
+	for i in range(leg_count):
+		legs[i].a.setAngle(150)
+	
+	for i in range(leg_count):
+		legs[i].a.waitForAngle(150)
+	
+	for i in range(leg_count):
+		legs[i].a.setAngle(210)
+	
+	for i in range(leg_count):
+		legs[i].a.waitForAngle(210)
+
+legs = 4 # of legs on jobo
 joints = 3 # number of joints per leg
 
 i = 1
@@ -35,12 +83,11 @@ time.sleep(0.75)
 # make jobo stand up taller
 for row in range(legs):
 	servos[row][1].setAngle(150)
-	servos[row][2].setAngle(180)
 
 time.sleep(0.75)
 
-# make jobo twists back and forth a few times
-for i in range(10):
+# make jobo twist back and forth a few times
+for i in range(5):
 	for row in range(legs):
 		servos[row][0].setAngle(150)
 	
