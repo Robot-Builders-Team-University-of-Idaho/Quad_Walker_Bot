@@ -38,7 +38,7 @@ addr_curr_vel = 128
 # Address for setting a servo's acceleration to get up to max speed and get down to a stop when changing position
 addr_pro_acl = 108
 # Bits per second that gets transmitted across the servo connection
-baudrate = 57600 # TODO: see if this value can be changed to something between 9,600 and 4,500,000 (higher is better)
+baudrate = 57600
 
 # Use the actual port assigned to the U2D2.
 # ex) Windows: "COM*", Linux: "/dev/ttyUSB*", Mac: "/dev/tty.usbserial-*"

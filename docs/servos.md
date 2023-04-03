@@ -9,6 +9,9 @@ Make sure the values
 addr_torque
 addr_goal_pos
 addr_curr_pos
+addr_pro_vel
+addr_curr_vel
+addr_pro_acl
 baudate
 ```
 are correct for the model of dynamixel servos that you are using.
