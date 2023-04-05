@@ -16,40 +16,45 @@ for i in range(leg_count):
 	legs[i].b.setAngle(180)
 	legs[i].c.setAngle(180)
 
-for i in range(leg_count):
-	legs[i].a.waitForAngle(180)
-	legs[i].b.waitForAngle(180)
-	legs[i].c.waitForAngle(180)
+time.sleep(0.5)
+#for i in range(leg_count):
+	#legs[i].a.waitForAngle(180)
+	#legs[i].b.waitForAngle(180)
+	#legs[i].c.waitForAngle(180)
 
 # make jobo stand up
 for i in range(leg_count):
 	legs[i].b.setAngle(200)
 	legs[i].c.setAngle(150)
 
-for i in range(leg_count):
-	legs[i].b.waitForAngle(200)
-	legs[i].c.waitForAngle(150)
+time.sleep(0.5)
+#for i in range(leg_count):
+	#legs[i].b.waitForAngle(200)
+	#legs[i].c.waitForAngle(150)
 
 # make jobo stand up a bit taller
 for i in range(leg_count):
 	legs[i].b.setAngle(150)
 
-for i in range(leg_count):
-	legs[i].b.waitForAngle(150)
+time.sleep(0.5)
+#for i in range(leg_count):
+	#legs[i].b.waitForAngle(150)
 
 # make jobo twist back and forth a few times
 for i in range(5):
 	for i in range(leg_count):
 		legs[i].a.setAngle(150)
 	
-	for i in range(leg_count):
-		legs[i].a.waitForAngle(150)
+	time.sleep(0.5)
+	#for i in range(leg_count):
+		#legs[i].a.waitForAngle(150)
 	
 	for i in range(leg_count):
 		legs[i].a.setAngle(210)
 	
-	for i in range(leg_count):
-		legs[i].a.waitForAngle(210)
+	time.sleep(0.5)
+	#for i in range(leg_count):
+		#legs[i].a.waitForAngle(210)
 
 legs = 4 # of legs on jobo
 joints = 3 # number of joints per leg

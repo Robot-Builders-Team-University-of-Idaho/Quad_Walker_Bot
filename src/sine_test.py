@@ -22,9 +22,6 @@ while True:
 	tact = t.microseconds + (t.seconds * 1000000)
 	angle = m.degrees(m.radians(a) * m.sin(m.radians((p * tact) + z)) + m.radians(a))
 	fr.a.setAngle(angle+135)
-	fr.b.setAngle(angle+135)
-	fr.c.setAngle(angle+135)
-	print(angle+90)
 	
 	if (tact >= 4000000):
 		break

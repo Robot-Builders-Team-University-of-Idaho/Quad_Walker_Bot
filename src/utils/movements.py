@@ -22,7 +22,7 @@ import math
 # start_ang = the angle that the servo starts the motion at / the horizontal shift of the sine wave / the y-intercept of the sine wave
 # speed = a percentage of how fast the servo is moving in the sine wave motion / the percentage of the wave_len
 # wave_len = a constant to control what a good max speed of the sine wave motion should be (default is 0.0005)
-def getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float, speed: float = 100, wave_len: float = 0.0005) -> float:
+def getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float, speed: float = 100, wave_len: float = 0.000013) -> float:
 	# Make sure t is valid
 	if type(t) is not float and type(t) is not int:
 		raise TypeError("t parameter must be float or int.")
@@ -75,7 +75,7 @@ def getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float,
 # start_pos = the servo position that the servo starts the motion at / the horizontal shift of the sine wave / the y-intercept of the sine wave
 # speed = a percentage of how fast the servo is moving in the sine wave motion / the percentage of the wave_len
 # wave_len = a constant to control what a good max speed of the sine wave motion should be (default is 0.0005)
-def getSinePos(t: float, lower_pos: int, upper_pos: int, start_pos: int, speed: float = 100, wave_len: float = 0.0005) -> int:
+def getSinePos(t: float, lower_pos: int, upper_pos: int, start_pos: int, speed: float = 100, wave_len: float = 0.000013) -> int:
 	# Make sure t is valid
 	if type(t) is not float and type(t) is not int:
 		raise TypeError("t parameter must be float or int.")

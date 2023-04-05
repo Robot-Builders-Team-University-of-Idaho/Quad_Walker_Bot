@@ -257,7 +257,7 @@ class servo:
 	# Waits for a servo to get to a certain angle
 	# angle = angle to wait for servo to reach
 	# error = number of position values away from angle to cause the wait to end if the servo comes within that range
-	def waitForAngle(self, angle: float, error: float = 100):
+	def waitForAngle(self, angle: float, error: float = 200):
 		# make sure angle is right type
 		if type(angle) is not float and type(angle) is not int:
 			raise TypeError(f"angle parameter must be of type float (or int) between {min_angle} and {max_angle}.")
@@ -302,7 +302,7 @@ class servo:
 	# Waits for a servo to get to a certain position
 	# pos = position to wait for servo to reach
 	# error = number of position values away from pos to cause the wait to end if the servo comes within that range
-	def waitForPos(self, pos: int, error: float = 100):
+	def waitForPos(self, pos: int, error: float = 200):
 		# make sure pos is the right type
 		if type(pos) is not int:
 			raise TypeError(f"pos parameter must be of type int between {min_pos} and {max_pos}.")
