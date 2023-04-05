@@ -4,7 +4,7 @@
 
 # Sine Wave Motions
 
-<ins>**getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float, speed: float = 100, wave_len: float = 0.0005) -> float**</ins>
+<ins>**getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float, speed: float = 100, wave_len: float = 0.000013) -> float**</ins>
 
 Returns the angle of a servo doing a sine wave motion at a given time t.
 Usually used in a while loop like this:
@@ -30,13 +30,13 @@ Inputs:
 - upper_ang: The highest angle in the sine wave motion (determines amplitude).
 - start_ang: The angle that the servo starts the motion at / the horizontal shift of the sine wave.
 - speed: A percentage of how fast the servo is moving in the sine wave motion / a percentage of the wave_len.
-- wave_len: A constant to control what a good max speed of the sine wave motion should be (default is 0.0005).
+- wave_len: A constant to control what a good max speed of the sine wave motion should be (default is 0.000013).
 
 Outputs:
 
 - The angle of a servo doing a sine wave motion at time t.
 
-<ins>**getSinePos(t: float, lower_pos: int, upper_pos: int, start_pos: int, speed: float = 100, wave_len: float = 0.0005) -> float**</ins>
+<ins>**getSinePos(t: float, lower_pos: int, upper_pos: int, start_pos: int, speed: float = 100, wave_len: float = 0.000013) -> float**</ins>
 
 Returns the servo position of a servo doing a sine wave motion at a given time t.
 Usually used in a while loop like this:
@@ -62,7 +62,7 @@ Inputs:
 - upper_pos: The highest servo position in the sine wave motion (determines amplitude).
 - start_pos: The servo position that the servo starts the motion at / the horizontal shift of the sine wave.
 - speed: A percentage of how fast the servo is moving in the sine wave motion / a percentage of the wave_len.
-- wave_len: A constant to control what a good max speed of the sine wave motion should be (default is 0.0005).
+- wave_len: A constant to control what a good max speed of the sine wave motion should be (default is 0.000013).
 
 Outputs:
 
