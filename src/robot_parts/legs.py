@@ -12,6 +12,7 @@
 ########################################################################################################################
 
 from robot_parts.servos import *
+from utils.movements import *
 
 # Storage class for holding 3 servos that are all on the same leg
 class leg:
@@ -48,3 +49,50 @@ class leg:
 	# String caster
 	def __str__(self):
 		return f"Leg({self.a}, {self.b}, {self.b})"
+	
+	# Makes the leg to a sine wave-like walking motion
+	# start_low = whether this leg should start at the low angle or the high angle
+	# t = the time (usually in microseconds) in the sine wave motion to move to
+	# speed = a percentage of how fast the leg is moving in the sine wave motion
+	# a_low = lowest angle that the a joint can move to in the motion
+	# a_high = the highest angle that the a joint can move to in the motion
+	def walk(self, start_low: bool, t: float, speed: float = 100, a_low: float = 135, a_high: float = 225):
+		# Parameter validation
+
+		# Make sure start_low is valid
+		if type(start_low) is not bool:
+			raise TypeError("start_low parameter must be a bool.")
+		
+		# Make sure t is valid
+		if type(t) is not float and type(t) is not int:
+			raise TypeError("t parameter must be a float or int.")
+		
+		# Make sure speed is valid
+		if type(speed) is not float and type(speed) is not int:
+			raise TypeError("speed parameter must be a float or int greater than 0.")
+		if speed < 0:
+			raise ValueError("speed parameter must be a float or int greater than 0.")
+		
+		# Make sure a_low is valid
+		if type(a_low) is not float and type(a_low) is not int:
+			raise TypeError(f"a_low parameter must be a float or int between {min_angle} and {max_angle}.")
+		if a_low < min_angle or a_low > max_angle:
+			raise ValueError(f"a_low parameter must be a float or int between {min_angle} and {max_angle}.")
+		
+		# Make sure a_high is valid
+		if type(a_high) is not float and type(a_high) is not int:
+			raise TypeError(f"a_high parameter must be a float or int between {min_angle} and {max_angle}.")
+		if a_high < min_angle or a_high > max_angle:
+			raise ValueError(f"a_high parameter must be a float or int between {min_angle} and {max_angle}.")
+		
+		b_low = 150
+		b_high = 190
+
+		a_start = a_high
+		b_start = b_high
+		if start_low:
+			a_start = a_low
+			b_start = b_low
+		
+		self.a.setAngle(getSineAngle(t, a_low, a_high, a_start, True, speed))
+		self.b.setAngle(getSineAngle(t, b_low, b_high, b_start, True, speed))
