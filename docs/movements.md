@@ -4,11 +4,14 @@
 
 # Sine Wave Motions
 
-<ins>**getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float, speed: float = 100, wave_len: float = 0.000013) -> float**</ins>
+<ins>**getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float, forward: bool, speed: float = 100, wave_len: float = 0.000013) -> float**</ins>
 
 Returns the angle of a servo doing a sine wave motion at a given time t.
 Usually used in a while loop like this:
 ```py
+from datetime import datetime
+from utils.movements import *
+
 start_time = datetime.now()
 time_passed = 0
 
@@ -21,7 +24,17 @@ while time_passed < 4_000_000:
 This makes a servo move in a sine wave motion between 135 degrees and 225 degrees at 50% speed with the default wave length starting at 180 degrees for 4 seconds.
 
 Equation for sine wave:
-$$\frac{upperang - lowerang}{2} sin((speed \cdot wavelen) t + startangoffset) + \frac{upperang + lowerang}{2}$$
+$$\frac{upperang - lowerang}{2} cos((speed \cdot wavelen) t + startoffset) + \frac{upperang + lowerang}{2}$$
+
+$startoffset$ is calculated by:
+
+if forward:
+
+$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} - \frac{\pi}{2}$
+
+else:
+
+$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} + \frac{\pi}{2}$
 
 Inputs:
 
@@ -29,6 +42,7 @@ Inputs:
 - lower_ang: The lowest angle in the sine wave motion (determines amplitude).
 - upper_ang: The highest angle in the sine wave motion (determines amplitude).
 - start_ang: The angle that the servo starts the motion at / the horizontal shift of the sine wave.
+- forward = Whether or not the angle begins increasing or decreasing at the start
 - speed: A percentage of how fast the servo is moving in the sine wave motion / a percentage of the wave_len.
 - wave_len: A constant to control what a good max speed of the sine wave motion should be (default is 0.000013).
 
@@ -41,6 +55,9 @@ Outputs:
 Returns the servo position of a servo doing a sine wave motion at a given time t.
 Usually used in a while loop like this:
 ```py
+from datetime import datetime
+from utils.movements import *
+
 start_time = datetime.now()
 time_passed = 0
 
@@ -53,7 +70,17 @@ while time_passed < 4_000_000:
 This makes a servo move in a sine wave motion between servo positions 1500 and 2500 at 50% speed with the default wave length starting at servo position 2000 for 4 seconds.
 
 Equation for sine wave:
-$$\frac{upperpos - lowerpos}{2} sin((speed \cdot wavelen) t + startposoffset) + \frac{upperpos + lowerpos}{2}$$
+$$\frac{upperpos - lowerpos}{2} cos((speed \cdot wavelen) t + startoffset) + \frac{upperpos + lowerpos}{2}$$
+
+$startoffset$ is calculated by:
+
+if forward:
+
+$startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} - \frac{\pi}{2}$
+
+else:
+
+$startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} + \frac{\pi}{2}$
 
 Inputs:
 
@@ -61,6 +88,7 @@ Inputs:
 - lower_pos: The lowest servo position in the sine wave motion (determines amplitude).
 - upper_pos: The highest servo position in the sine wave motion (determines amplitude).
 - start_pos: The servo position that the servo starts the motion at / the horizontal shift of the sine wave.
+- forward = Whether or not the position begins increasing or decreasing at the start
 - speed: A percentage of how fast the servo is moving in the sine wave motion / a percentage of the wave_len.
 - wave_len: A constant to control what a good max speed of the sine wave motion should be (default is 0.000013).
 
