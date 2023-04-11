@@ -56,9 +56,9 @@ def getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float,
 	
 	# Make sure speed is valid
 	if type(speed) is not float and type(speed) is not int:
-		raise TypeError(f"speed parameter must be a float (or int) greater than on a percentage scale (0 to 100, but you can go above 100).")
+		raise TypeError(f"speed parameter must be a float (or int) greater than 0 on a percentage scale (0 to 100, but you can go above 100).")
 	if speed <= 0:
-		raise ValueError(f"speed parameter must be a float (or int) greater than on a percentage scale (0 to 100, but you can go above 100).")
+		raise ValueError(f"speed parameter must be a float (or int) greater than 0 on a percentage scale (0 to 100, but you can go above 100).")
 	
 	# Make sure wave_len is valid
 	if type(wave_len) is not float and type(wave_len) is not int:
@@ -120,9 +120,9 @@ def getSinePos(t: float, lower_pos: int, upper_pos: int, start_pos: int, forward
 	
 	# Make sure speed is valid
 	if type(speed) is not float and type(speed) is not int:
-		raise TypeError(f"speed parameter must be a int greater than on a percentage scale (0 to 100, but you can go above 100).")
+		raise TypeError(f"speed parameter must be a int greater than 0 on a percentage scale (0 to 100, but you can go above 100).")
 	if speed <= 0:
-		raise ValueError(f"speed parameter must be a int greater than on a percentage scale (0 to 100, but you can go above 100).")
+		raise ValueError(f"speed parameter must be a int greater than 0 on a percentage scale (0 to 100, but you can go above 100).")
 	
 	# Make sure wave_len is valid
 	if type(wave_len) is not float and type(wave_len) is not int:
