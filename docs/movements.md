@@ -28,11 +28,15 @@ $$\frac{upperang - lowerang}{2} cos((speed \cdot wavelen) t + startoffset) + \fr
 
 $startoffset$ is calculated by:
 
+```py
 if forward:
+```
 
 $startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} - \frac{\pi}{2}$
 
+```py
 else:
+```
 
 $startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} + \frac{\pi}{2}$
 
@@ -74,11 +78,15 @@ $$\frac{upperpos - lowerpos}{2} cos((speed \cdot wavelen) t + startoffset) + \fr
 
 $startoffset$ is calculated by:
 
+```py
 if forward:
+```
 
 $startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} - \frac{\pi}{2}$
 
+```py
 else:
+```
 
 $startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} + \frac{\pi}{2}$
 
