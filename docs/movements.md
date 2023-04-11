@@ -32,13 +32,13 @@ $startoffset$ is calculated by:
 if forward:
 ```
 
-$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} - \frac{\pi}{2}$
+$$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} - \frac{\pi}{2}$$
 
 ```py
 else:
 ```
 
-$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} + \frac{\pi}{2}$
+$$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} + \frac{\pi}{2}$$
 
 Inputs:
 
@@ -82,13 +82,13 @@ $startoffset$ is calculated by:
 if forward:
 ```
 
-$startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} - \frac{\pi}{2}$
+$$startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} - \frac{\pi}{2}$$
 
 ```py
 else:
 ```
 
-$startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} + \frac{\pi}{2}$
+$$startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} + \frac{\pi}{2}$$
 
 Inputs:
 
