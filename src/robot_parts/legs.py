@@ -56,7 +56,7 @@ class leg:
 	# speed = a percentage of how fast the leg is moving in the sine wave motion
 	# a_low = lowest angle that the a joint can move to in the motion
 	# a_high = the highest angle that the a joint can move to in the motion
-	def walk(self, start_low: bool, t: float, speed: float = 100, a_low: float = 135, a_high: float = 225):
+	def walk(self, start_low: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210):
 		# Parameter validation
 
 		# Make sure start_low is valid
@@ -85,14 +85,17 @@ class leg:
 		if a_high < min_angle or a_high > max_angle:
 			raise ValueError(f"a_high parameter must be a float or int between {min_angle} and {max_angle}.")
 		
-		b_low = 150
-		b_high = 190
+		b_low = 130
+		b_high = 210
+		b_mid = (b_high + b_low) / 2
 
 		a_start = a_high
 		b_start = b_high
 		if start_low:
 			a_start = a_low
-			b_start = b_low
 		
-		self.a.setAngle(getSineAngle(t, a_low, a_high, a_start, True, speed))
-		self.b.setAngle(getSineAngle(t, b_low, b_high, b_start, True, speed))
+		a_angle = getSineAngle(t, a_low, a_high, a_start, True, speed)
+		b_angle = getSineAngle(t, b_low, b_high, b_mid, start_low, speed)
+		self.a.setAngle(a_angle)
+		if b_angle >= b_mid:
+			self.b.setAngle(b_angle)
