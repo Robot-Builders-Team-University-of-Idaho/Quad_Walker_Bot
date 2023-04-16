@@ -4,8 +4,8 @@ import time
 
 a_low = 150
 a_high = 210
-b_low = 130
-b_high = 210
+b_low = 110
+b_high = 190
 b_mid = (b_high + b_low) / 2
 
 servo.connect()
@@ -43,11 +43,11 @@ legs[1].a.setAngle(a_high)
 legs[1].b.setAngle(b_mid)
 legs[1].c.setAngle(110)
 
-legs[2].a.setAngle(a_high)
+legs[2].a.setAngle(a_low)
 legs[2].b.setAngle(b_mid)
 legs[2].c.setAngle(110)
 
-legs[3].a.setAngle(a_low)
+legs[3].a.setAngle(a_high)
 legs[3].b.setAngle(b_mid)
 legs[3].c.setAngle(110)
 

@@ -4,8 +4,8 @@ import time
 
 a_low = 150
 a_high = 210
-b_low = 130
-b_high = 210
+b_low = 110
+b_high = 190
 b_mid = (b_high + b_low) / 2
 
 servo.connect()
