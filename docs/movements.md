@@ -24,21 +24,21 @@ while time_passed < 4_000_000:
 This makes a servo move in a sine wave motion between 135 degrees and 225 degrees at 50% speed with the default wave length starting at 180 degrees for 4 seconds.
 
 Equation for sine wave:
-$$\frac{upperang - lowerang}{2} cos((speed \cdot wavelen) t + startoffset) + \frac{upperang + lowerang}{2}$$
+$$\frac{upper\_ang - lower\_ang}{2} cos((speed \cdot wave\_len) t + start\_offset) + \frac{upper\_ang + lower\_ang}{2}$$
 
-$startoffset$ is calculated by:
+$start\_offset$ is calculated by:
 
 ```py
 if forward:
 ```
 
-$$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} - \frac{\pi}{2}$$
+$$start\_offset = (start\_ang - \frac{upper\_ang + lower\_ang}{2}) \cdot \frac{\pi}{upper\_ang - lower\_ang} - \frac{\pi}{2}$$
 
 ```py
 else:
 ```
 
-$$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} + \frac{\pi}{2}$$
+$$start\_offset = (start\_ang - \frac{upper\_ang + lower\_ang}{2}) \cdot \frac{\pi}{upper\_ang - lower\_ang} + \frac{\pi}{2}$$
 
 Inputs:
 
@@ -74,21 +74,21 @@ while time_passed < 4_000_000:
 This makes a servo move in a sine wave motion between servo positions 1500 and 2500 at 50% speed with the default wave length starting at servo position 2000 for 4 seconds.
 
 Equation for sine wave:
-$$\frac{upperpos - lowerpos}{2} cos((speed \cdot wavelen) t + startoffset) + \frac{upperpos + lowerpos}{2}$$
+$$\frac{upper\_pos - lower\_pos}{2} cos((speed \cdot wave\_len) t + start\_offset) + \frac{upper\_pos + lower\_pos}{2}$$
 
-$startoffset$ is calculated by:
+$start\_offset$ is calculated by:
 
 ```py
 if forward:
 ```
 
-$$startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} - \frac{\pi}{2}$$
+$$start\_offset = (start\_pos - \frac{upper\_pos + lower\_pos}{2}) \cdot \frac{\pi}{upper\_pos - lower\_pos} - \frac{\pi}{2}$$
 
 ```py
 else:
 ```
 
-$$startoffset = (startapos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} + \frac{\pi}{2}$$
+$$start\_offset = (start\_pos - \frac{upper\_pos + lower\_pos}{2}) \cdot \frac{\pi}{upper\_pos - lower\_pos} + \frac{\pi}{2}$$
 
 Inputs:
 
