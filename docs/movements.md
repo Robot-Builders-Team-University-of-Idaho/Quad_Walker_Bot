@@ -26,6 +26,7 @@ while time_passed < 4_000_000:
 	angle = getSineAngle(time_passed, 135, 225, 180, 50)
 	srv.setAngle(angle)
 
+srv.torqueOff()
 servo.close()
 ```
 This makes a servo move in a sine wave motion between 135 degrees and 225 degrees at 50% speed with the default wave length starting at 180 degrees for 4 seconds.
@@ -83,6 +84,7 @@ while time_passed < 4_000_000:
 	position = getSinePos(time_passed, 1500, 2500, 2000, 50)
 	srv.setPos(position)
 
+srv.torqueOff()
 servo.close()
 ```
 This makes a servo move in a sine wave motion between servo positions 1500 and 2500 at 50% speed with the default wave length starting at servo position 2000 for 4 seconds.
