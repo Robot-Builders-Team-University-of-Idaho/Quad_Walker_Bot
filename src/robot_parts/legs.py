@@ -51,16 +51,16 @@ class leg:
 		return f"Leg({self.a}, {self.b}, {self.b})"
 	
 	# Makes the leg to a sine wave-like walking motion
-	# start_low = whether this leg should start at the low angle or the high angle
+	# a_start_low = whether the a joint on this leg should start at the low angle or the high angle
 	# t = the time (usually in microseconds) in the sine wave motion to move to
 	# speed = a percentage of how fast the leg is moving in the sine wave motion
 	# a_low = lowest angle that the a joint can move to in the motion
 	# a_high = the highest angle that the a joint can move to in the motion
-	def walk(self, start_low: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210):
+	def walk(self, a_start_low: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210):
 		# Parameter validation
 
-		# Make sure start_low is valid
-		if type(start_low) is not bool:
+		# Make sure a_start_low is valid
+		if type(a_start_low) is not bool:
 			raise TypeError("start_low parameter must be a bool.")
 		
 		# Make sure t is valid
@@ -91,11 +91,11 @@ class leg:
 
 		a_start = a_high
 		b_start = b_high
-		if start_low:
+		if a_start_low:
 			a_start = a_low
 		
 		a_angle = getSineAngle(t, a_low, a_high, a_start, True, speed)
-		b_angle = getSineAngle(t, b_low, b_high, b_mid, start_low, speed)
+		b_angle = getSineAngle(t, b_low, b_high, b_mid, a_start_low, speed)
 		self.a.setAngle(a_angle)
 		if b_angle >= b_mid:
 			self.b.setAngle(b_angle)
