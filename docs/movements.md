@@ -24,21 +24,21 @@ while time_passed < 4_000_000:
 This makes a servo move in a sine wave motion between 135 degrees and 225 degrees at 50% speed with the default wave length starting at 180 degrees for 4 seconds.
 
 Equation for sine wave:
-$$\frac{upper \textunderscore ang - lowerang}{2} cos((speed \cdot wavelen) t + startoffset) + \frac{upperang + lowerang}{2}$$
+$$\frac{upper \textunderscore ang - lower \textunderscore ang}{2} cos((speed \cdot wave \textunderscore len) t + start \textunderscore offset) + \frac{upper \textunderscore ang + lower \textunderscore ang}{2}$$
 
-$startoffset$ is calculated by:
+$start \textunderscore offset$ is calculated by:
 
 ```py
 if forward:
 ```
 
-$$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} - \frac{\pi}{2}$$
+$$start \textunderscore offset = (start \textunderscore ang - \frac{upper \textunderscore ang + lower \textunderscore ang}{2}) \cdot \frac{\pi}{upper \textunderscore ang - lower \textunderscore ang} - \frac{\pi}{2}$$
 
 ```py
 else:
 ```
 
-$$startoffset = (startang - \frac{upperang + lowerang}{2}) \cdot \frac{\pi}{upperang - lowerang} + \frac{\pi}{2}$$
+$$start \textunderscore offset = (start \textunderscore ang - \frac{upper \textunderscore ang + lower \textunderscore ang}{2}) \cdot \frac{\pi}{upper \textunderscore ang - lower \textunderscore ang} + \frac{\pi}{2}$$
 
 Inputs:
 
@@ -74,21 +74,21 @@ while time_passed < 4_000_000:
 This makes a servo move in a sine wave motion between servo positions 1500 and 2500 at 50% speed with the default wave length starting at servo position 2000 for 4 seconds.
 
 Equation for sine wave:
-$$\frac{upperpos - lowerpos}{2} cos((speed \cdot wavelen) t + startoffset) + \frac{upperpos + lowerpos}{2}$$
+$$\frac{upper \textunderscore pos - lower \textunderscore pos}{2} cos((speed \cdot wave \textunderscore len) t + start \textunderscore offset) + \frac{upper \textunderscore pos + lower \textunderscore pos}{2}$$
 
-$startoffset$ is calculated by:
+$start \textunderscore offset$ is calculated by:
 
 ```py
 if forward:
 ```
 
-$$startoffset = (startpos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} - \frac{\pi}{2}$$
+$$start \textunderscore offset = (start \textunderscore pos - \frac{upper \textunderscore pos + lower \textunderscore pos}{2}) \cdot \frac{\pi}{upper \textunderscore pos - lower \textunderscore pos} - \frac{\pi}{2}$$
 
 ```py
 else:
 ```
 
-$$startoffset = (startpos - \frac{upperpos + lowerpos}{2}) \cdot \frac{\pi}{upperpos - lowerpos} + \frac{\pi}{2}$$
+$$start \textunderscore offset = (start \textunderscore pos - \frac{upper \textunderscore pos + lower \textunderscore pos}{2}) \cdot \frac{\pi}{upper \textunderscore pos - lower \textunderscore pos} + \frac{\pi}{2}$$
 
 Inputs:
 
