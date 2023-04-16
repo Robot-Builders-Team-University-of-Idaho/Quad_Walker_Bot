@@ -13,7 +13,7 @@ from datetime import datetime
 from robot_parts.servos import *
 from utils.movements import *
 
-servo.open()
+servo.connect()
 
 srv = servo(1)
 
@@ -71,7 +71,7 @@ from datetime import datetime
 from robot_parts.servos import *
 from utils.movements import *
 
-servo.open()
+servo.connect()
 
 srv = servo(1)
 
