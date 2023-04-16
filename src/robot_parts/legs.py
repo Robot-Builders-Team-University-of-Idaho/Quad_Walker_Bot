@@ -56,7 +56,9 @@ class leg:
 	# speed = a percentage of how fast the leg is moving in the sine wave motion
 	# a_low = lowest angle that the a joint can move to in the motion
 	# a_high = the highest angle that the a joint can move to in the motion
-	def walk(self, a_start_low: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210):
+	# b_low = lowest angle that the b joint can move to in the motion
+	# b_high = the highest angle that the b joint can move to in the motion
+	def walk(self, a_start_low: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210, b_low: float = 110, b_high: float = 190):
 		# Parameter validation
 
 		# Make sure a_start_low is valid
@@ -78,21 +80,29 @@ class leg:
 			raise TypeError(f"a_low parameter must be a float or int between {min_angle} and {max_angle}.")
 		if a_low < min_angle or a_low > max_angle:
 			raise ValueError(f"a_low parameter must be a float or int between {min_angle} and {max_angle}.")
-		
 		# Make sure a_high is valid
 		if type(a_high) is not float and type(a_high) is not int:
 			raise TypeError(f"a_high parameter must be a float or int between {min_angle} and {max_angle}.")
 		if a_high < min_angle or a_high > max_angle:
 			raise ValueError(f"a_high parameter must be a float or int between {min_angle} and {max_angle}.")
 		
-		b_low = 130
-		b_high = 210
+		# Make sure b_low is valid
+		if type(b_low) is not float and type(b_low) is not int:
+			raise TypeError(f"b_low parameter must be a float or int between {min_angle} and {max_angle}.")
+		if b_low < min_angle or b_low > max_angle:
+			raise ValueError(f"b_low parameter must be a float or int between {min_angle} and {max_angle}.")
+		# Make sure b_high is valid
+		if type(b_high) is not float and type(b_high) is not int:
+			raise TypeError(f"b_high parameter must be a float or int between {min_angle} and {max_angle}.")
+		if b_high < min_angle or b_high > max_angle:
+			raise ValueError(f"b_high parameter must be a float or int between {min_angle} and {max_angle}.")
+		
 		b_mid = (b_high + b_low) / 2
-
-		a_start = a_high
-		b_start = b_high
+		
 		if a_start_low:
 			a_start = a_low
+		else:
+			a_start = a_high
 		
 		a_angle = getSineAngle(t, a_low, a_high, a_start, True, speed)
 		b_angle = getSineAngle(t, b_low, b_high, b_mid, a_start_low, speed)
