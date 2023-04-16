@@ -10,7 +10,12 @@ Returns the angle of a servo doing a sine wave motion at a given time t.
 Usually used in a while loop like this:
 ```py
 from datetime import datetime
+from robot_parts.servos import *
 from utils.movements import *
+
+servo.open()
+
+srv = servo(1)
 
 start_time = datetime.now()
 time_passed = 0
@@ -19,7 +24,9 @@ while time_passed < 4_000_000:
 	time_passed = datetime.now() - start_time # returns timedelta class
 	time_passed = (time_passed.seconds * 1_000_000) + time_passed.microseconds
 	angle = getSineAngle(time_passed, 135, 225, 180, 50)
-	servo.setAngle(angle)
+	srv.setAngle(angle)
+
+servo.close()
 ```
 This makes a servo move in a sine wave motion between 135 degrees and 225 degrees at 50% speed with the default wave length starting at 180 degrees for 4 seconds.
 
@@ -60,7 +67,12 @@ Returns the servo position of a servo doing a sine wave motion at a given time t
 Usually used in a while loop like this:
 ```py
 from datetime import datetime
+from robot_parts.servos import *
 from utils.movements import *
+
+servo.open()
+
+srv = servo(1)
 
 start_time = datetime.now()
 time_passed = 0
@@ -69,7 +81,9 @@ while time_passed < 4_000_000:
 	time_passed = datetime.now() - start_time # returns timedelta class
 	time_passed = (time_passed.seconds * 1_000_000) + time_passed.microseconds
 	position = getSinePos(time_passed, 1500, 2500, 2000, 50)
-	servo.setPos(position)
+	srv.setPos(position)
+
+servo.close()
 ```
 This makes a servo move in a sine wave motion between servo positions 1500 and 2500 at 50% speed with the default wave length starting at servo position 2000 for 4 seconds.
 
