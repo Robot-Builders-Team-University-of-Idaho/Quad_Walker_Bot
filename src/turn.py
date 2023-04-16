@@ -25,9 +25,15 @@ for i in range(leg_count):
 time.sleep(0.75)
 
 for i in range(leg_count):
+	legs[i].b.torqueOff()
+
+for i in range(leg_count):
 	legs[i].c.setAngle(90)
 
 time.sleep(0.75)
+
+for i in range(leg_count):
+	legs[i].b.torqueOn()
 
 legs[0].a.setAngle(a_low)
 legs[0].b.setAngle(b_mid)
