@@ -24,7 +24,7 @@ while time_passed < 4_000_000:
 This makes a servo move in a sine wave motion between 135 degrees and 225 degrees at 50% speed with the default wave length starting at 180 degrees for 4 seconds.
 
 Equation for sine wave:
-$$\frac{upperang - lowerang}{2} cos((speed \cdot wavelen) t + startoffset) + \frac{upperang + lowerang}{2}$$
+$$\frac{upper \textunderscore ang - lowerang}{2} cos((speed \cdot wavelen) t + startoffset) + \frac{upperang + lowerang}{2}$$
 
 $startoffset$ is calculated by:
 
