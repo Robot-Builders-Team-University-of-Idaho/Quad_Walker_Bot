@@ -46,7 +46,7 @@ Inputs:
 - lower_ang: The lowest angle in the sine wave motion (determines amplitude).
 - upper_ang: The highest angle in the sine wave motion (determines amplitude).
 - start_ang: The angle that the servo starts the motion at / the horizontal shift of the sine wave.
-- forward = Whether or not the angle begins increasing or decreasing at the start
+- forward = Whether or not the angle begins increasing or decreasing at the start (True means start increasing (shift sine wave right), False means start decreasing(shift sine wave left))
 - speed: A percentage of how fast the servo is moving in the sine wave motion / a percentage of the wave_len.
 - wave_len: A constant to control what a good max speed of the sine wave motion should be (default is 0.000013).
 
@@ -96,7 +96,7 @@ Inputs:
 - lower_pos: The lowest servo position in the sine wave motion (determines amplitude).
 - upper_pos: The highest servo position in the sine wave motion (determines amplitude).
 - start_pos: The servo position that the servo starts the motion at / the horizontal shift of the sine wave.
-- forward = Whether or not the position begins increasing or decreasing at the start
+- forward = Whether or not the position begins increasing or decreasing at the start (True means start increasing (shift sine wave right), False means start decreasing(shift sine wave left))
 - speed: A percentage of how fast the servo is moving in the sine wave motion / a percentage of the wave_len.
 - wave_len: A constant to control what a good max speed of the sine wave motion should be (default is 0.000013).
 

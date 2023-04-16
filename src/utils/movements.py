@@ -20,7 +20,7 @@ import math
 # lower_ang = the lowest angle in the sine wave motion
 # upper_ang = the highest angle in the sine wave motion
 # start_ang = the angle that the servo starts the motion at / the horizontal shift of the sine wave / the y-intercept of the sine wave
-# forward = whether or not the angle begins increasing or decreasing at the start
+# forward = whether or not the angle begins increasing or decreasing at the start (True means start increasing (shift sine wave right), False means start decreasing(shift sine wave left))
 # speed = a percentage of how fast the servo is moving in the sine wave motion / the percentage of the wave_len
 # wave_len = a constant to control what a good max speed of the sine wave motion should be (default is 0.000013)
 def getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float, forward: bool, speed: float = 100, wave_len: float = 0.000013) -> float:
@@ -84,7 +84,7 @@ def getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float,
 # lower_pos = the lowest servo position in the sine wave motion
 # upper_pos = the highest servo position in the sine wave motion
 # start_pos = the servo position that the servo starts the motion at / the horizontal shift of the sine wave / the y-intercept of the sine wave
-# forward = whether or not the position begins increasing or decreasing at the start
+# forward = whether or not the position begins increasing or decreasing at the start (True means start increasing (shift sine wave right), False means start decreasing(shift sine wave left))
 # speed = a percentage of how fast the servo is moving in the sine wave motion / the percentage of the wave_len
 # wave_len = a constant to control what a good max speed of the sine wave motion should be (default is 0.000013)
 def getSinePos(t: float, lower_pos: int, upper_pos: int, start_pos: int, forward: bool, speed: float = 100, wave_len: float = 0.000013) -> int:
