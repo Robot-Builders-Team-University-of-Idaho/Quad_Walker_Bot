@@ -12,7 +12,7 @@ Here are some links to the official Dynamixel website that show you how to downl
 
 ## Documentation
 
-Make sure you read our [coding style standards](/docs/standards.md) before you start programming! Be sure to read other things in the [docs](/docs) folder as well!
+Make sure you read our [standards](/docs/standards.md) before you start adding to the repository! Be sure to read other things in the [docs](/docs) folder as well!
 
 If you want to learn more about the Dynamixel servos to make changes to [servos.py](/src/robot_parts/servos.py) or for other purposes, check out [the control table for the Dynamixel XL330-M288-T servos](https://emanual.robotis.com/docs/en/dxl/x/xl330-m288/) that we're using for Jobo.
 This will show you what all of the memory locations are for and how large each one is etc.
