@@ -60,14 +60,26 @@ start = datetime.now()
 now = 0
 speed = 25
 
-# walk for 8 seconds
-while now < 8_000_000:
-	now = datetime.now() - start
-	now = (now.seconds * 1_000_000) + now.microseconds
-	legs[0].walk(True, now, speed=speed)
-	legs[1].walk(False, now, speed=speed)
-	legs[2].walk(True, now, speed=speed)
-	legs[3].walk(False, now, speed=speed)
+# walk forward for 8 seconds
+#while now < 8_000_000:
+#	now = datetime.now() - start
+#	now = (now.seconds * 1_000_000) + now.microseconds
+#	legs[0].walk(True, now, speed=speed)
+#	legs[1].walk(False, now, speed=speed)
+#	legs[2].walk(True, now, speed=speed)
+#	legs[3].walk(False, now, speed=speed)
+
+# walk forward until ctrl + c is pressed
+try:
+	while True:
+		now = datetime.now() - start
+		now = (now.seconds * 1_000_000) + now.microseconds
+		legs[0].walk(True, now, speed=speed)
+		legs[1].walk(False, now, speed=speed)
+		legs[2].walk(True, now, speed=speed)
+		legs[3].walk(False, now, speed=speed)
+except KeyboardInterrupt:
+	print("\nCtrl + C Pressed... Stopping")
 
 # disable torque on all servos
 for i in range(leg_count):
