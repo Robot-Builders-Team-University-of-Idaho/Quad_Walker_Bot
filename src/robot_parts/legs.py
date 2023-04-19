@@ -58,7 +58,7 @@ class leg:
 	# a_high = the highest angle that the a joint can move to in the motion
 	# b_low = lowest angle that the b joint can move to in the motion
 	# b_high = the highest angle that the b joint can move to in the motion
-	def walk(self, a_start_low: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210, b_low: float = 110, b_high: float = 190):
+	def walk(self, a_start_low: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210, b_low: float = 130, b_high: float = 210):
 		# Parameter validation
 
 		# Make sure a_start_low is valid

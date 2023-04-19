@@ -1,12 +1,13 @@
 from robot_parts.legs import *
 from datetime import datetime
 import time
+import os
 
 # define a and b joint high, low, and mid angles
 a_low = 150
 a_high = 210
-b_low = 110
-b_high = 190
+b_low = 130
+b_high = 210
 b_mid = (b_high + b_low) / 2
 
 # establish connection with servos
@@ -43,16 +44,13 @@ for i in range(leg_count):
 
 # stand up making sure a joints for each leg are in correct start position
 legs[0].a.setAngle(a_low)
-legs[0].b.setAngle(b_mid)
-
 legs[1].a.setAngle(a_high)
-legs[1].b.setAngle(b_mid)
-
 legs[2].a.setAngle(a_low)
-legs[2].b.setAngle(b_mid)
-
 legs[3].a.setAngle(a_high)
-legs[3].b.setAngle(b_mid)
+
+# move b legs into stand up position
+for i in range(leg_count):
+	legs[i].b.setAngle(b_mid)
 
 time.sleep(2)
 
@@ -72,12 +70,14 @@ speed = 25
 # walk forward until ctrl + c is pressed
 try:
 	while True:
-		now = datetime.now() - start
-		now = (now.seconds * 1_000_000) + now.microseconds
-		legs[0].walk(True, now, speed=speed)
-		legs[1].walk(False, now, speed=speed)
-		legs[2].walk(True, now, speed=speed)
-		legs[3].walk(False, now, speed=speed)
+		#now = datetime.now() - start
+		#now = (now.seconds * 1_000_000) + now.microseconds
+		#legs[0].walk(True, now, speed=speed)
+		#legs[1].walk(False, now, speed=speed)
+		#legs[2].walk(True, now, speed=speed)
+		#legs[3].walk(False, now, speed=speed)
+		
+		
 except KeyboardInterrupt:
 	print("\nCtrl + C Pressed... Stopping")
 
@@ -89,3 +89,5 @@ for i in range(leg_count):
 
 # close connection to servos
 servo.close()
+
+os.system("python3 disable_torque.py")
