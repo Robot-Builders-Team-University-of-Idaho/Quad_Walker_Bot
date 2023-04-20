@@ -4,6 +4,8 @@
 
 This module contains an object to store 3 servos per robot leg in a convenient and intuitive way.
 
+Check out [servos.md](/docs/robot_parts/servos.md) for more information on how to control the servos and [movements.md](/docs/utils/movements.md) for more information on how the getSineAngle() function works.
+
 ## Meta Functions
 
 <ins>**leg(a, b, c, a_torque_on: bool = True, b_torque_on: bool = True, c_torque_on: bool = True) -> leg**</ins>
@@ -40,6 +42,49 @@ Outputs:
 <ins>**walk(a_start_low: bool, b_increasing: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210, b_low: float = 130, b_high: float = 210)**</ins>
 
 Makes the leg go to the next position to do a walking motion at time t.
+
+Usually used like this:
+
+```py
+from datetime import datetime
+from robot_parts.legs import *
+
+servo.connect()
+
+lg = leg(1, 2, 3)
+
+a_low = 150
+a_high = 210
+b_low = 130
+b_high = 210
+b_mid = (b_low + b_high) / 2
+
+lg.a.setAngle(a_high)
+lg.b.setAngle(b_mid)
+lg.c.setAngle(90)
+
+start_time = datetime.now()
+time_passed = 0
+
+while time_passed < 4_000_000:
+	time_passed = datetime.now() - start_time # returns timedelta class
+	time_passed = (time_passed.seconds * 1_000_000) + time_passed.microseconds
+	lg.walk(False, True, time_passed, speed=50, a_low=a_low, a_high=a_high, b_low=b_low, b_high=b_high)
+
+lg.a.torqueOff()
+lg.b.torqueOff()
+lg.c.torqueOff()
+servo.close()
+```
+
+This makes the leg move in a walking motion with the a joint starting all the way at its highest angle in the motion, with b increasing its angle at the start, at 50% speed,
+with the a joint moving between 150 and 210 degrees, and with the b joint moving between 170 and 210 degrees (b joint never goes below the mid point between low and high to form a half-circle motion to be able to walk).
+
+Make sure to start the a servo at either the highest or lowest point in the movement corresponding to the a_start_low value that you choose.
+Also be sure to start the b servo at the mid point between the b_low and b_high values.
+Doing this will make it so these joints won't jolt over to where they're supposed to be at the start instead of just already being there.
+
+Note: The b servo will never go below the mid point between the b_low and b_high movement so it forms a half-circle motion to be able to walk.
 
 Inputs:
 
