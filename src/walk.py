@@ -70,14 +70,12 @@ speed = 25
 # walk forward until ctrl + c is pressed
 try:
 	while True:
-		#now = datetime.now() - start
-		#now = (now.seconds * 1_000_000) + now.microseconds
-		#legs[0].walk(True, now, speed=speed)
-		#legs[1].walk(False, now, speed=speed)
-		#legs[2].walk(True, now, speed=speed)
-		#legs[3].walk(False, now, speed=speed)
-		
-		
+		now = datetime.now() - start
+		now = (now.seconds * 1_000_000) + now.microseconds
+		legs[0].walk(True, False, now, speed=speed)
+		legs[1].walk(True, True, now, speed=speed)
+		legs[2].walk(False, True, now, speed=speed)
+		legs[3].walk(False, False, now, speed=speed)
 except KeyboardInterrupt:
 	print("\nCtrl + C Pressed... Stopping")
 
