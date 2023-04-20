@@ -1,5 +1,9 @@
 # Repository Standards (Coding style, file structure, etc.)
 
+It can often be painfully hard to try to figure out how other peoples' code works and annoying to look at inconsistent code styling, like using snake_case for some identifiers and camelCase for others or seeing people use tabs in some places but spaces in others.
+The goal of this file is to avoid as much of that pain as possible.
+This repository might be used by many people after you, so follow these standards and make sure you leave it as clean or cleaner than you found it so that people in the future don't have to go through the pain of dealing with messy code that you made.
+
 ## Commit Descriptions
 
 Whenever you create a commit to push to the repository, make sure you put the name of each file / folder you changed, added, or removed followed by a new line with a numbered list of each change that was made to that file / folder.
@@ -69,7 +73,10 @@ unit_test.py
 
 ## Documentation Files
 
-TLDR: All doc files should be ".md" files, have markdown formatting to make it look nice, and be well written.
+TLDR: Write documentation for all modules you create, all doc files should be ".md" files, have markdown formatting to make it look nice, and be well written.
+
+Make sure that there are documentation files for all modules that you create to be imported into other code.
+The documentation files must also be in the corresponding subfolder to the module that it's documenting (ex: a documentation file for `/src/folder/module.py` must go in `/docs/folder/module.md`).
 
 All documentation files should be ".md" text files so they can be easily read on GitHub.
 Be sure to include some decent formatting as well to make it look nice.

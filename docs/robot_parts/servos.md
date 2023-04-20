@@ -2,6 +2,8 @@
 
 [servos.py](/src/robot_parts/servos.py)
 
+This module is for controlling Dynamixel servos, specifically the XL330-M288-T servos.
+
 # Making Sure Values Are Correct
 
 Make sure the values

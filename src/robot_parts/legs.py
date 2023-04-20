@@ -50,14 +50,14 @@ class leg:
 	def __str__(self):
 		return f"Leg({self.a}, {self.b}, {self.b})"
 	
-	# Makes the leg to a sine wave-like walking motion
+	# Makes the leg go to the next position to do a walking motion at time t
 	# a_start_low = whether the a joint on this leg should start at the low angle or the high angle
 	# b_increasing = whether the b joint begins the motion increasing its angle or not
 	# t = the time (usually in microseconds) in the sine wave motion to move to
 	# speed = a percentage of how fast the leg is moving in the sine wave motion
-	# a_low = lowest angle that the a joint can move to in the motion
+	# a_low = the lowest angle that the a joint can move to in the motion
 	# a_high = the highest angle that the a joint can move to in the motion
-	# b_low = lowest angle that the b joint can move to in the motion
+	# b_low = the lowest angle that the b joint can move to in the motion
 	# b_high = the highest angle that the b joint can move to in the motion
 	def walk(self, a_start_low: bool, b_increasing: bool, t: float, speed: float = 100, a_low: float = 150, a_high: float = 210, b_low: float = 130, b_high: float = 210):
 		# Parameter validation

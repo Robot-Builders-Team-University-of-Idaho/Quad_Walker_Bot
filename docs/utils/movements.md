@@ -2,6 +2,8 @@
 
 [movements.py](/src/utils/movements.py)
 
+This module is for helping to map robotic movements to servos.
+
 # Sine Wave Motions
 
 <ins>**getSineAngle(t: float, lower_ang: float, upper_ang: float, start_ang: float, forward: bool, speed: float = 100, wave_len: float = 0.000013) -> float**</ins>
