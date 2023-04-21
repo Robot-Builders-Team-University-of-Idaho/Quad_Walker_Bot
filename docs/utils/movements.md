@@ -25,7 +25,7 @@ time_passed = 0
 while time_passed < 4_000_000:
 	time_passed = datetime.now() - start_time # returns timedelta class
 	time_passed = (time_passed.seconds * 1_000_000) + time_passed.microseconds
-	angle = getSineAngle(time_passed, 135, 225, 180, 50)
+	angle = getSineAngle(time_passed, 135, 225, 180, True, 50)
 	srv.setAngle(angle)
 
 srv.torqueOff()
@@ -83,7 +83,7 @@ time_passed = 0
 while time_passed < 4_000_000:
 	time_passed = datetime.now() - start_time # returns timedelta class
 	time_passed = (time_passed.seconds * 1_000_000) + time_passed.microseconds
-	position = getSinePos(time_passed, 1500, 2500, 2000, 50)
+	position = getSinePos(time_passed, 1500, 2500, 2000, True, 50)
 	srv.setPos(position)
 
 srv.torqueOff()
