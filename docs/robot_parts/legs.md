@@ -78,7 +78,7 @@ servo.close()
 ```
 
 This makes a leg made of servos 1, 2, and 3 move in a walking motion with the a joint starting at its highest angle in the motion, with b increasing its angle at the start, with the a joint moving between 150 and 210 degrees,
-with the b joint moving between 170 and 210 degrees (b joint never goes below the mid point between low and high to form a half-circle motion to be able to walk), and at 50% speed.
+with the b joint moving between 170 and 210 degrees (b joint never goes below the mid point between low and high to form a half-circle motion to be able to walk), and at 50% speed for 4 seconds.
 
 Make sure to start the a servo at either the highest or lowest point in the movement corresponding to the a_start_low value that you choose.
 Also be sure to start the b servo at the mid point between the b_low and b_high values.
