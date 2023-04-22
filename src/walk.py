@@ -110,6 +110,3 @@ for i in range(leg_count):
 
 # close connection to servos
 servo.close()
-
-# disable torque on all servos :/
-#os.system("python3 disable_torque.py")
