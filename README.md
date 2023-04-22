@@ -3,7 +3,7 @@ Code base for a 4-legged spider-like bot named Joe the Robot (Jobo) that is bein
 
 ## Dependencies
 
-Here are the things you need to install for everything in this codebase to work.
+Here are the things you need to install for everything in this repository to work.
 
 ### Dynamixel SDK
 
@@ -15,7 +15,7 @@ Here are some links to the official Dynamixel website that show you how to downl
 
 [Installing the Python Files for the Dynamixel SDK](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/library_setup/python_linux/)
 
-The servos this library is programmed for are the XL330-M288-T servos.
+The servos this repository is programmed for are the XL330-M288-T servos.
 
 ### Keyboard
 
