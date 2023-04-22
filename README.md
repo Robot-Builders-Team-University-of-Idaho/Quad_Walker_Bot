@@ -1,14 +1,29 @@
 # Quad_Walker_Bot
 Code base for a 4-legged spider-like bot named Joe the Robot (Jobo) that is being built by the Mobile Robot team in the University of Idaho Robotics Club.
 
-## Setup
-To be able to run this repository on your own, you need to have the Dynamixel SDK installed on the system you want to run it on, and the right Dynamixel servos connected to your system.
+## Dependencies
+
+Here are the things you need to install for everything in this codebase to work.
+
+### Dynamixel SDK
+
+To be able to run any code that moves the servos, you need to have the Dynamixel SDK installed on the system you want to run it on.
 
 Here are some links to the official Dynamixel website that show you how to download and install the Dynamixel SDK on linux:
 
 [Downloading the Dynamixel SDK](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/download/)
 
 [Installing the Python Files for the Dynamixel SDK](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/library_setup/python_linux/)
+
+The servos this library is programmed for are the XL330-M288-T servos.
+
+### Keyboard
+
+This is for reading key presses from the keyboard and writing key presses to the keyboard. Useful to making programs run until you press a button.
+
+Use this command on your system to install the module:
+
+`pip install keyboard`
 
 ## Documentation
 
