@@ -2,6 +2,9 @@ from robot_parts.legs import *
 from datetime import datetime
 import time
 import os
+import keyboard
+
+# NOTE: You need to run this program as root / sudo for the keyboard library to work!
 
 # define a and b joint high, low, and mid angles
 a_low = 150
@@ -20,8 +23,11 @@ for i in range(leg_count):
 	n = i * 2 + i + 1
 	legs.append(leg(n, n+1, n+2))
 
-# set all legs out straight
+# set all legs out straight and make sure all velocities are at max
 for i in range(leg_count):
+	legs[i].a.setVel(max_vel)
+	legs[i].b.setVel(max_vel)
+	legs[i].c.setVel(max_vel)
 	legs[i].a.setAngle(180)
 	legs[i].b.setAngle(180)
 	legs[i].c.setAngle(180)
@@ -56,7 +62,7 @@ time.sleep(2)
 
 start = datetime.now()
 now = 0
-speed = 25
+speed = 50
 
 # walk forward for 8 seconds
 #while now < 8_000_000:
@@ -67,25 +73,43 @@ speed = 25
 #	legs[2].walk(True, now, speed=speed)
 #	legs[3].walk(False, now, speed=speed)
 
-# walk forward until ctrl + c is pressed
-try:
-	while True:
-		now = datetime.now() - start
-		now = (now.seconds * 1_000_000) + now.microseconds
-		legs[0].walk(True, False, now, speed=speed)
-		legs[1].walk(True, True, now, speed=speed)
-		legs[2].walk(False, True, now, speed=speed)
-		legs[3].walk(False, False, now, speed=speed)
-except KeyboardInterrupt:
-	print("\nCtrl + C Pressed... Stopping")
+# walk forward until enter is pressed
+print("Hold 'Enter' to stop.")
+while True:
+	if keyboard.is_pressed("enter"):
+		break
+	
+	now = datetime.now() - start
+	now = (now.seconds * 1_000_000) + now.microseconds
+	legs[0].walk(True, False, now, speed=speed)
+	legs[1].walk(True, True, now, speed=speed)
+	legs[2].walk(False, True, now, speed=speed)
+	legs[3].walk(False, False, now, speed=speed)
 
-# disable torque on all servos
+# set jobo to standing position and lower c velocity
+for i in range(leg_count):
+	legs[i].a.setAngle(180)
+	legs[i].b.setAngle(b_mid)
+	legs[i].c.setVel(100)
+
+time.sleep(0.75)
+
+# make jobo lay down
+for i in range(leg_count):
+	legs[i].b.setAngle(180)
+	legs[i].c.setAngle(180)
+
+time.sleep(0.75)
+
+# disable torque on all servos and set c velocity back to max
 for i in range(leg_count):
 	legs[i].a.torqueOff()
 	legs[i].b.torqueOff()
 	legs[i].c.torqueOff()
+	legs[i].c.setVel(max_vel)
 
 # close connection to servos
 servo.close()
 
-os.system("python3 disable_torque.py")
+# disable torque on all servos :/
+#os.system("python3 disable_torque.py")
