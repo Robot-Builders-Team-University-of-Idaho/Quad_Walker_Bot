@@ -9,7 +9,7 @@ Here are the things you need to install for everything in this codebase to work.
 
 To be able to run any code that moves the servos, you need to have the Dynamixel SDK installed on the system you want to run it on.
 
-Here are some links to the official Dynamixel website that show you how to download and install the Dynamixel SDK on linux:
+Here are some links to the official Dynamixel website that show you how to download and install the Dynamixel SDK on Linux:
 
 [Downloading the Dynamixel SDK](https://emanual.robotis.com/docs/en/software/dynamixel/dynamixel_sdk/download/)
 
@@ -24,6 +24,8 @@ This is for reading key presses from the keyboard and writing key presses to the
 Use this command on your system to install the module:
 
 `pip install keyboard`
+
+Make sure you run every program that uses this module as root / sudo. Ex: `sudo python3 program.py` instead of just `python3 program.py` for Linux systems.
 
 ## Documentation
 
