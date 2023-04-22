@@ -50,8 +50,8 @@ for i in range(leg_count):
 
 # stand up making sure a joints for each leg are in correct start position
 legs[0].a.setAngle(a_low)
-legs[1].a.setAngle(a_high)
-legs[2].a.setAngle(a_low)
+legs[1].a.setAngle(a_low)
+legs[2].a.setAngle(a_high)
 legs[3].a.setAngle(a_high)
 
 # move b legs into stand up position
