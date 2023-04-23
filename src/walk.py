@@ -1,7 +1,6 @@
 from robot_parts.legs import *
 from datetime import datetime
 import time
-import os
 import keyboard
 
 # NOTE: You need to run this program as root / sudo for the keyboard library to work!
