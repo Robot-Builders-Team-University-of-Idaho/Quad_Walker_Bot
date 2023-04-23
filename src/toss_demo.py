@@ -21,4 +21,4 @@ time.sleep(1)
 a.setAngle(180)
 b.setAngle(30)
 
-closeServos()
+servo.close()
